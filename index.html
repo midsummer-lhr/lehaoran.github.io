@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIXEL PORTFOLIO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=VT323&family=Press+Start+2P&family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #fdf5e6;
+            --bg-panel: #f5e6c8;
+            --bg-card: #faf1dc;
+            --text-primary: #3d2b1f;
+            --text-secondary: #8b6914;
+            --text-muted: #6b5a4a;
+            --accent-pink: #ff6b9d;
+            --accent-yellow: #ffd93d;
+            --accent-purple: #c4a44a;
+            --pixel-border: #8b6914;
+            --wood-dark: #6b4e0a;
+            --wood-light: #c4a44a;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: #fdf5e6;
+            color: #3d2b1f;
+            image-rendering: auto;
+        }
+        .pixel-font {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+        .pixel-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+        }
+        .bg-cream { background-color: #fdf5e6; }
+        .bg-warm { background-color: #f5e6c8; }
+        .text-brown { color: #3d2b1f; }
+        .text-gold { color: #8b6914; }
+        .bg-gold { background-color: #f5e6c8; }
+        .bg-gold-light { background-color: #faf1dc; }
+        .border-gold { border-color: #8b6914; }
+        
+        /* Welcome Screen - Earth Online Style */
+        .welcome-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: linear-gradient(180deg, #0a1628 0%, #1a2f4a 50%, #0d1f35 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: opacity 0.8s ease;
+            overflow: hidden;
+        }
+        .welcome-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        /* Pixel Earth */
+        .pixel-earth {
+            position: absolute;
+            width: 60%;
+            max-width: 500px;
+            height: auto;
+            bottom: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: earth-float 8s ease-in-out infinite;
+        }
+        
+        /* Pixel Astronaut */
+        .pixel-astronaut {
+            position: absolute;
+            right: 10%;
+            top: 30%;
+            width: 80px;
+            height: 100px;
+            animation: astronaut-float 6s ease-in-out infinite;
+        }
+        
+        /* Pixel Satellite */
+        .pixel-satellite {
+            position: absolute;
+            left: 8%;
+            top: 40%;
+            width: 70px;
+            height: 60px;
+            animation: satellite-orbit 10s linear infinite;
+        }
+        
+        /* Pixel Moon */
+        .pixel-moon {
+            position: absolute;
+            right: 15%;
+            top: 15%;
+            width: 80px;
+            height: 80px;
+            opacity: 0.6;
+        }
+        
+        /* Clouds */
+        .pixel-cloud {
+            position: absolute;
+            opacity: 0.8;
+            animation: cloud-float 20s linear infinite;
+        }
+        .cloud-1 {
+            top: 25%;
+            left: -10%;
+            width: 120px;
+            animation-delay: 0s;
+        }
+        .cloud-2 {
+            top: 45%;
+            left: -8%;
+            width: 80px;
+            animation-delay: 8s;
+        }
+        
+        .welcome-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: clamp(1.5rem, 8vw, 3.5rem);
+            color: #fff;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 
+                2px 2px 0 #00d4ff,
+                4px 4px 0 #00d4ff,
+                6px 6px 0 rgba(0,0,0,0.5);
+            letter-spacing: 0.15em;
+            -webkit-text-stroke: 1px rgba(0,212,255,0.3);
+        }
+        
+        .welcome-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: clamp(0.6rem, 3vw, 1.2rem);
+            color: #87ceeb;
+            margin-bottom: 3rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+        
+        .server-region {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2rem;
+            padding: 8px 20px;
+            background: rgba(255,255,255,0.1);
+            border: 2px solid #4a90a4;
+        }
+        
+        .region-dot {
+            width: 12px;
+            height: 12px;
+            background: #ff4444;
+            box-shadow: 0 0 10px #ff4444;
+            animation: dot-pulse 1.5s infinite;
+        }
+        
+        .region-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.8rem, 2.5vw, 1.3rem);
+            color: #fff;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        
+        .enter-button {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.7rem, 2.5vw, 1.1rem);
+            color: #fff;
+            padding: 15px 40px;
+            background: linear-gradient(180deg, #4a90a4 0%, #2a6070 100%);
+            border: 3px solid #1a3a4a;
+            box-shadow: 
+                4px 4px 0 #1a2f4a;
+            transition: all 0.2s;
+            cursor: pointer;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        
+        .enter-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #1a2f4a;
+        }
+        
+        .welcome-footer {
+            position: absolute;
+            bottom: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 400;
+            font-size: clamp(0.5rem, 1.5vw, 0.7rem);
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            letter-spacing: 0.1em;
+        }
+        
+        @keyframes earth-float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-20px); }
+        }
+        
+        @keyframes astronaut-float {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+        
+        @keyframes satellite-orbit {
+            0% { transform: rotate(0deg) translateX(10px) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(10px) rotate(-360deg); }
+        }
+        
+        @keyframes cloud-float {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 200px)); }
+        }
+        
+        @keyframes dot-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Stardew Valley Style */
+        .sv-box {
+            background: #f5e6c8;
+            border: 6px solid #8b6914;
+            box-shadow: 
+                inset 0 0 0 2px #c4a44a,
+                inset 0 0 0 4px #a8892e,
+                6px 6px 0 rgba(0,0,0,0.25);
+            position: relative;
+            image-rendering: pixelated;
+        }
+        .sv-box::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border: 2px solid #6b4e0a;
+            pointer-events: none;
+        }
+        .sv-inner {
+            background: #fdf5e6;
+            border: 3px solid #c4a44a;
+            box-shadow: inset 0 0 0 1px #e8d5a8;
+        }
+        .sv-text {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            color: #5a3e1b;
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
+        .sv-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            color: #3d2b1f;
+            text-shadow: 2px 2px 0 #c4a44a;
+            letter-spacing: 0.1em;
+        }
+        .sv-label {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: #8b6914;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .sv-heart {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin: 0 2px;
+            font-size: 18px;
+        }
+        .sv-heart-full {
+            color: #ff4444;
+            text-shadow: 0 0 6px #ff4444;
+        }
+        .sv-heart-empty {
+            color: #666;
+            opacity: 0.3;
+        }
+        .sv-skill-bar {
+            height: 16px;
+            background: #3d2b1f;
+            border: 2px solid #6b4e0a;
+            position: relative;
+        }
+        .sv-skill-fill {
+            height: 100%;
+            background: linear-gradient(180deg, #7bc74a 0%, #5a9a3a 50%, #4a8a2a 100%);
+            border-right: 2px solid #3d6b1a;
+            position: relative;
+        }
+        .sv-skill-fill::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 4px;
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+        }
+        .sv-photo-frame {
+            background: #8b6914;
+            border: 4px solid #6b4e0a;
+            padding: 6px;
+            box-shadow: inset 0 0 0 2px #c4a44a, 4px 4px 0 rgba(0,0,0,0.2);
+        }
+        .sv-photo-frame img {
+            image-rendering: pixelated;
+            border: 2px solid #5a3e1b;
+        }
+        .sv-divider {
+            border: none;
+            height: 4px;
+            background: repeating-linear-gradient(90deg, #c4a44a 0px, #c4a44a 10px, transparent 10px, transparent 16px);
+        }
+        .sv-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 0.5rem;
+            padding: 3px 8px;
+            border: 2px solid;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .sv-tag-green {
+            color: #4a8a2a;
+            border-color: #4a8a2a;
+            background: rgba(74,138,42,0.1);
+        }
+        .sv-tag-gold {
+            color: #8b6914;
+            border-color: #8b6914;
+            background: rgba(139,105,20,0.1);
+        }
+        .sv-tag-pink {
+            color: #cc4466;
+            border-color: #cc4466;
+            background: rgba(204,68,102,0.1);
+        }
+        .sv-tag-blue {
+            color: #4a7a9a;
+            border-color: #4a7a9a;
+            background: rgba(74,122,154,0.1);
+        }
+        .sv-icon-box {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #8b6914;
+            background: #fdf5e6;
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.15);
+            font-size: 18px;
+        }
+        .sv-fence {
+            background: repeating-linear-gradient(90deg, #8b6914 0px, #8b6914 8px, #6b4e0a 8px, #6b4e0a 10px, transparent 10px, transparent 20px);
+            height: 6px;
+        }
+        .sv-flower {
+            animation: sv-sway 3s ease-in-out infinite;
+        }
+        @keyframes sv-sway {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        .sv-butterfly {
+            animation: sv-fly 6s ease-in-out infinite;
+        }
+        @keyframes sv-fly {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(15px, -10px) rotate(10deg); }
+            50% { transform: translate(5px, -20px) rotate(-5deg); }
+            75% { transform: translate(-10px, -5px) rotate(5deg); }
+        }
+        .sv-sparkle {
+            animation: sv-sparkle 2s ease-in-out infinite;
+        }
+        @keyframes sv-sparkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .sv-float {
+            animation: sv-float 4s ease-in-out infinite;
+        }
+        @keyframes sv-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .sv-bounce {
+            animation: sv-bounce 2s ease-in-out infinite;
+        }
+        @keyframes sv-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .sv-cloud {
+            animation: sv-cloud-float 8s ease-in-out infinite;
+        }
+        @keyframes sv-cloud-float {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(15px); }
+        }
+        
+        /* Pixel Typography */
+        .magazine-title {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 0 var(--accent-pink);
+        }
+        .magazine-subtitle {
+            font-family: 'VT323', monospace;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Pixel Divider */
+        .magazine-divider {
+            width: 40px;
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--pixel-border) 0px,
+                var(--pixel-border) 8px,
+                transparent 8px,
+                transparent 12px
+            );
+        }
+        
+        /* Pixel Hover Effects */
+        .project-card {
+            transition: all 0.3s;
+            border: 2px solid var(--pixel-border);
+            box-shadow: 4px 4px 0 var(--accent-pink);
+        }
+        .project-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--accent-pink);
+        }
+        
+        /* Pixel Grid */
+        .masonry {
+            column-count: 3;
+            column-gap: 1rem;
+        }
+        @media (max-width: 1024px) {
+            .masonry { column-count: 2; }
+        }
+        @media (max-width: 640px) {
+            .masonry { column-count: 1; }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            border: 2px solid var(--pixel-border);
+        }
+        
+        /* Pixel Navigation */
+        .nav-link {
+            position: relative;
+            font-family: 'VT323', monospace;
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+        }
+        .nav-link::before {
+            content: '[ ';
+            color: var(--accent-pink);
+        }
+        .nav-link::after {
+            content: ' ]';
+            color: var(--accent-pink);
+        }
+        .nav-link:hover {
+            color: var(--accent-yellow);
+        }
+        
+        /* Pixel Image */
+        .img-zoom {
+            overflow: hidden;
+            border: 2px solid var(--pixel-border);
+        }
+        .img-zoom img {
+            image-rendering: pixelated;
+        }
+        
+        /* Pixel Quote */
+        .quote-mark {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 3rem;
+            color: var(--accent-pink);
+            display: block;
+            margin-bottom: 1rem;
+            line-height: 1;
+            opacity: 0.5;
+        }
+        
+        /* Asymmetric Grid */
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+        .asymmetric-col-5 { grid-column: span 5; }
+        .asymmetric-col-7 { grid-column: span 7; }
+        .asymmetric-col-4 { grid-column: span 4; }
+        .asymmetric-col-6 { grid-column: span 6; }
+        .asymmetric-col-8 { grid-column: span 8; }
+        
+        @media (max-width: 768px) {
+            .asymmetric-col-5, .asymmetric-col-7, 
+            .asymmetric-col-4, .asymmetric-col-6,
+            .asymmetric-col-8 {
+                grid-column: span 12;
+            }
+        }
+        
+        /* Life Grid */
+        .life-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto;
+            gap: 1rem;
+        }
+        .life-grid .item-1 { grid-column: span 2; grid-row: span 2; }
+        .life-grid .item-2 { grid-column: span 1; }
+        .life-grid .item-3 { grid-column: span 1; }
+        .life-grid .item-4 { grid-column: span 2; }
+        .life-grid .item-5 { grid-column: span 2; }
+        .life-grid .item-6 { grid-column: span 2; }
+        
+        @media (max-width: 768px) {
+            .life-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .life-grid .item-1,
+            .life-grid .item-4,
+            .life-grid .item-5,
+            .life-grid .item-6 {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Welcome Screen - Earth Online Style -->
+    <div id="welcome-screen" class="welcome-screen">
+        <!-- Pixel Earth SVG -->
+        <svg class="pixel-earth" viewBox="0 0 400 400">
+            <defs>
+                <pattern id="pixelGrid" width="8" height="8" patternUnits="userSpaceOnUse">
+                    <rect width="8" height="8" fill="#2d6b7a"/>
+                    <rect width="4" height="4" fill="#1a4a5a"/>
+                    <rect width="4" height="4" x="4" y="4" fill="#1a4a5a"/>
+                </pattern>
+            </defs>
+            
+            <ellipse cx="200" cy="200" rx="175" ry="165" fill="#2d6b7a" stroke="#1a3a4a" stroke-width="3"/>
+            
+            <ellipse cx="200" cy="200" rx="175" ry="165" fill="url(#pixelGrid)" opacity="0.3"/>
+            
+            <rect x="80" y="100" width="60" height="80" fill="#4a9a6a" rx="4"/>
+            <rect x="90" y="90" width="40" height="30" fill="#5aab7a" rx="2"/>
+            <rect x="70" y="150" width="30" height="40" fill="#5aab7a" rx="2"/>
+            <rect x="110" y="170" width="40" height="30" fill="#6abb8a" rx="2"/>
+            
+            <rect x="220" y="120" width="80" height="70" fill="#4a9a6a" rx="4"/>
+            <rect x="240" y="110" width="40" height="30" fill="#5aab7a" rx="2"/>
+            <rect x="210" y="160" width="30" height="40" fill="#5aab7a" rx="2"/>
+            <rect x="260" y="180" width="40" height="25" fill="#6abb8a" rx="2"/>
+            
+            <rect x="140" y="220" width="50" height="50" fill="#4a9a6a" rx="3"/>
+            <rect x="150" y="210" width="30" height="25" fill="#5aab7a" rx="2"/>
+            <rect x="130" y="250" width="35" height="30" fill="#5aab7a" rx="2"/>
+            
+            <rect x="50" y="180" width="25" height="45" fill="#4a9a6a" rx="2"/>
+            <rect x="55" y="175" width="15" height="20" fill="#5aab7a" rx="1"/>
+            
+            <rect x="300" y="200" width="25" height="50" fill="#4a9a6a" rx="2"/>
+            <rect x="305" y="195" width="15" height="25" fill="#5aab7a" rx="1"/>
+            
+            <rect x="170" y="80" width="35" height="25" fill="#4a9a6a" rx="2"/>
+            <rect x="175" y="75" width="25" height="15" fill="#5aab7a" rx="1"/>
+            
+            <rect x="280" y="90" width="20" height="20" fill="#4a9a6a" rx="2"/>
+            
+            <line x1="25" y1="200" x2="375" y2="200" stroke="#1a3a4a" stroke-width="2" opacity="0.4"/>
+            <line x1="200" y1="35" x2="200" y2="365" stroke="#1a3a4a" stroke-width="2" opacity="0.4"/>
+            
+            <line x1="50" y1="120" x2="350" y2="280" stroke="#1a3a4a" stroke-width="1" opacity="0.2"/>
+            <line x1="350" y1="120" x2="50" y2="280" stroke="#1a3a4a" stroke-width="1" opacity="0.2"/>
+        </svg>
+        
+        <!-- Pixel Moon -->
+        <svg class="pixel-moon" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#6b7b8b" />
+            <circle cx="50" cy="50" r="42" fill="#7b8b9b" />
+            <circle cx="35" cy="35" r="8" fill="#5b6b7b" />
+            <circle cx="65" cy="40" r="6" fill="#5b6b7b" />
+            <circle cx="55" cy="65" r="10" fill="#5b6b7b" />
+            <circle cx="35" cy="60" r="5" fill="#5b6b7b" />
+            <circle cx="70" cy="60" r="4" fill="#5b6b7b" />
+        </svg>
+        
+        <!-- Pixel Astronaut -->
+        <svg class="pixel-astronaut" viewBox="0 0 80 100">
+            <rect x="25" y="5" width="30" height="30" rx="8" fill="#d0d0d0" />
+            <rect x="30" y="10" width="20" height="20" rx="5" fill="#a0a0a0" />
+            <rect x="35" y="15" width="10" height="10" fill="#202020" />
+            <rect x="20" y="35" width="10" height="30" fill="#d0d0d0" />
+            <rect x="50" y="35" width="10" height="30" fill="#d0d0d0" />
+            <rect x="28" y="35" width="24" height="40" rx="3" fill="#e0e0e0" />
+            <rect x="35" y="45" width="10" height="15" fill="#87ceeb" />
+            <rect x="35" y="65" width="10" height="8" fill="#87ceeb" />
+            <rect x="20" y="65" width="8" height="15" fill="#d0d0d0" />
+            <rect x="52" y="65" width="8" height="15" fill="#d0d0d0" />
+            <rect x="18" y="80" width="12" height="12" fill="#c0c0c0" />
+            <rect x="50" y="80" width="12" height="12" fill="#c0c0c0" />
+        </svg>
+        
+        <!-- Pixel Satellite -->
+        <svg class="pixel-satellite" viewBox="0 0 80 60">
+            <rect x="35" y="20" width="10" height="20" fill="#a0a0a0" />
+            <rect x="38" y="25" width="4" height="10" fill="#606060" />
+            <circle cx="40" cy="15" r="8" fill="#b0b0b0" />
+            <circle cx="40" cy="15" r="5" fill="#d0d0d0" />
+            <rect x="5" y="25" width="25" height="4" fill="#808080" />
+            <rect x="50" y="25" width="25" height="4" fill="#808080" />
+            <rect x="15" y="30" width="10" height="8" fill="#909090" />
+            <rect x="55" y="30" width="10" height="8" fill="#909090" />
+        </svg>
+        
+        <!-- Clouds -->
+        <svg class="pixel-cloud cloud-1" viewBox="0 0 120 40">
+            <rect x="10" y="15" width="30" height="20" fill="#c0d0e0" />
+            <rect x="30" y="5" width="30" height="25" fill="#c0d0e0" />
+            <rect x="50" y="10" width="30" height="20" fill="#c0d0e0" />
+            <rect x="70" y="15" width="30" height="18" fill="#c0d0e0" />
+            <rect x="20" y="20" width="60" height="15" fill="#c0d0e0" />
+        </svg>
+        <svg class="pixel-cloud cloud-2" viewBox="0 0 80 30">
+            <rect x="5" y="10" width="25" height="15" fill="#c0d0e0" />
+            <rect x="25" y="3" width="25" height="20" fill="#c0d0e0" />
+            <rect x="45" y="8" width="25" height="15" fill="#c0d0e0" />
+            <rect x="15" y="15" width="45" height="12" fill="#c0d0e0" />
+        </svg>
+        
+        <!-- Main Content -->
+        <div style="text-align: center; z-index: 10;">
+            <h1 class="welcome-title">EARTH ONLINE</h1>
+            <div class="welcome-subtitle">地球 ONLINE</div>
+            
+            <div class="server-region">
+                <div class="region-dot"></div>
+                <span class="region-text">中国区 CHINA</span>
+            </div>
+            
+            <div class="enter-button">WELCOME TO MY CHANNEL</div>
+            
+            <div class="welcome-footer">
+                <div>全球第一人称开放世界冒险游戏 · 80亿人同时在线</div>
+                <div style="font-size: 0.6rem; margin-top: 5px;">GLOBAL FIRST-PERSON OPEN WORLD ADVENTURE GAME · 8 BILLION PLAYERS ONLINE</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50" style="background: #f5e6c8; border-bottom: 4px solid #8b6914; box-shadow: 0 2px 0 0 #6b4e0a;">
+        <div class="max-w-7xl mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center h-14 md:h-16">
+                <a href="#home" class="sv-text text-[10px] md:text-xs font-bold" style="color: #3d2b1f;">✦ 像素站 ✦</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="sv-text text-[11px] font-semibold hover:text-gold transition-colors" style="color: #5a3e1b;">首页</a>
+                    <a href="#work" class="sv-text text-[11px] font-semibold hover:text-gold transition-colors" style="color: #5a3e1b;">工作</a>
+                    <a href="#life" class="sv-text text-[11px] font-semibold hover:text-gold transition-colors" style="color: #5a3e1b;">生活</a>
+                </div>
+                <button id="menu-toggle" class="md:hidden sv-inner p-2" style="padding: 6px 10px;">
+                    <span class="sv-text text-base">☰</span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden" style="background: #f5e6c8; border-top: 3px solid #c4a44a;">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#home" class="block py-2 sv-text text-sm font-semibold" style="color: #3d2b1f;">✦ 首页</a>
+                <a href="#work" class="block py-2 sv-text text-sm font-semibold" style="color: #3d2b1f;">✦ 工作</a>
+                <a href="#life" class="block py-2 sv-text text-sm font-semibold" style="color: #3d2b1f;">✦ 生活</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Stardew Valley Style -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-4 md:px-8 pt-16 relative" style="background: linear-gradient(180deg, #87ceeb 0%, #a8d8ea 25%, #c8e6b8 25%, #7bc74a 26%, #5a9a3a 100%);">
+        
+        <!-- Pixel Clouds -->
+        <div class="absolute top-16 left-0 right-0 overflow-hidden pointer-events-none">
+            <svg class="absolute left-[5%] top-0 sv-flower" width="100" height="40" viewBox="0 0 100 40">
+                <rect x="5" y="15" width="30" height="18" fill="white" rx="3"/>
+                <rect x="25" y="5" width="35" height="28" fill="white" rx="3"/>
+                <rect x="50" y="12" width="30" height="20" fill="white" rx="3"/>
+            </svg>
+            <svg class="absolute left-[40%] top-6 sv-flower" style="animation-delay: 1.5s;" width="80" height="35" viewBox="0 0 80 35">
+                <rect x="5" y="12" width="25" height="16" fill="white" rx="3"/>
+                <rect x="20" y="5" width="30" height="22" fill="white" rx="3"/>
+                <rect x="40" y="10" width="25" height="18" fill="white" rx="3"/>
+            </svg>
+            <svg class="absolute right-[8%] top-2 sv-flower" style="animation-delay: 0.8s;" width="110" height="38" viewBox="0 0 110 38">
+                <rect x="5" y="14" width="35" height="18" fill="white" rx="3"/>
+                <rect x="30" y="5" width="40" height="26" fill="white" rx="3"/>
+                <rect x="60" y="12" width="35" height="20" fill="white" rx="3"/>
+            </svg>
+        </div>
+        
+        <!-- Sun -->
+        <div class="absolute top-20 right-[8%] sv-float">
+            <svg width="60" height="60" viewBox="0 0 60 60">
+                <circle cx="30" cy="30" r="18" fill="#ffd93d"/>
+                <circle cx="30" cy="30" r="14" fill="#ffe680"/>
+                <rect x="28" y="4" width="4" height="10" fill="#ffd93d"/>
+                <rect x="28" y="46" width="4" height="10" fill="#ffd93d"/>
+                <rect x="4" y="28" width="10" height="4" fill="#ffd93d"/>
+                <rect x="46" y="28" width="10" height="4" fill="#ffd93d"/>
+                <rect x="10" y="10" width="4" height="8" fill="#ffd93d" transform="rotate(45 12 14)"/>
+                <rect x="42" y="10" width="4" height="8" fill="#ffd93d" transform="rotate(-45 44 14)"/>
+                <rect x="10" y="42" width="4" height="8" fill="#ffd93d" transform="rotate(-45 12 46)"/>
+                <rect x="42" y="42" width="4" height="8" fill="#ffd93d" transform="rotate(45 44 46)"/>
+            </svg>
+        </div>
+        
+        <!-- Butterflies -->
+        <svg class="absolute top-36 right-[20%] sv-butterfly" width="24" height="20" viewBox="0 0 24 20">
+            <ellipse cx="8" cy="7" rx="6" ry="5" fill="#ff9ecd"/>
+            <ellipse cx="16" cy="7" rx="6" ry="5" fill="#ffb6db"/>
+            <ellipse cx="8" cy="14" rx="5" ry="4" fill="#ff9ecd"/>
+            <ellipse cx="16" cy="14" rx="5" ry="4" fill="#ffb6db"/>
+            <rect x="11" y="5" width="2" height="12" fill="#5a3e1b"/>
+        </svg>
+        <svg class="absolute top-52 left-[8%] sv-butterfly" style="animation-delay: 2s;" width="20" height="16" viewBox="0 0 20 16">
+            <ellipse cx="6" cy="5" rx="5" ry="4" fill="#ffd93d"/>
+            <ellipse cx="14" cy="5" rx="5" ry="4" fill="#ffe680"/>
+            <ellipse cx="6" cy="11" rx="4" ry="3" fill="#ffd93d"/>
+            <ellipse cx="14" cy="11" rx="4" ry="3" fill="#ffe680"/>
+            <rect x="9" y="3" width="2" height="10" fill="#5a3e1b"/>
+        </svg>
+        <svg class="absolute top-28 left-[25%] sv-butterfly" style="animation-delay: 4s;" width="18" height="14" viewBox="0 0 18 14">
+            <ellipse cx="5" cy="4" rx="4" ry="3" fill="#87ceeb"/>
+            <ellipse cx="13" cy="4" rx="4" ry="3" fill="#a0d8ef"/>
+            <ellipse cx="5" cy="10" rx="3" ry="2" fill="#87ceeb"/>
+            <ellipse cx="13" cy="10" rx="3" ry="2" fill="#a0d8ef"/>
+            <rect x="8" y="2" width="2" height="9" fill="#5a3e1b"/>
+        </svg>
+        
+        <!-- Fence Top -->
+        <div class="absolute top-[24%] left-0 right-0 sv-fence"></div>
+        
+        <!-- Main Content -->
+        <div class="max-w-5xl mx-auto relative z-10 w-full">
+            <div class="sv-box p-6 md:p-10">
+                
+                <!-- Title Banner -->
+                <div class="text-center mb-5">
+                    <div class="flex items-center justify-center gap-3 mb-2">
+                        <svg class="sv-bounce" width="28" height="28" viewBox="0 0 28 28">
+                            <circle cx="14" cy="14" r="10" fill="#ff6b9d"/>
+                            <circle cx="14" cy="14" r="6" fill="#ffd93d"/>
+                            <rect x="12" y="2" width="4" height="6" fill="#5a9a3a"/>
+                        </svg>
+                        <div class="sv-title text-xl md:text-3xl">雷浩然</div>
+                        <svg class="sv-bounce" style="animation-delay: 0.5s;" width="28" height="28" viewBox="0 0 28 28">
+                            <circle cx="14" cy="14" r="10" fill="#87ceeb"/>
+                            <circle cx="14" cy="14" r="6" fill="#ffd93d"/>
+                            <rect x="12" y="2" width="4" height="6" fill="#5a9a3a"/>
+                        </svg>
+                    </div>
+                    <div class="sv-label text-xs md:text-sm">客户权益部 · 救援运营科</div>
+                    <div class="flex items-center justify-center gap-2 mt-2">
+                        <span class="sv-tag sv-tag-green">无咖啡会死星人</span>
+                        <span class="sv-tag sv-tag-gold">半i半e</span>
+                        <span class="sv-tag sv-tag-pink">打工人</span>
+                        <span class="sv-tag sv-tag-blue">99级</span>
+                    </div>
+                </div>
+                
+                <hr class="sv-divider mb-6">
+                
+                <!-- Character Layout -->
+                <div class="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
+                    
+                    <!-- Left: Pixel Portrait -->
+                    <div class="flex flex-col items-center gap-4 md:w-56 flex-shrink-0 mx-auto md:mx-0">
+                        <div class="sv-photo-frame">
+                            <img src="./pic.jpg" alt="个人照片" class="w-44 h-56 md:w-52 md:h-64 object-cover" style="image-rendering: pixelated;">
+                        </div>
+                        
+                        <!-- Hearts -->
+                        <div class="flex items-center gap-1">
+                            <span class="sv-heart sv-heart-full">❤</span>
+                            <span class="sv-heart sv-heart-full">❤</span>
+                            <span class="sv-heart sv-heart-full">❤</span>
+                            <span class="sv-heart sv-heart-full">❤</span>
+                            <span class="sv-heart sv-heart-full">❤</span>
+                            <span class="sv-heart sv-heart-empty">♡</span>
+                            <span class="sv-heart sv-heart-empty">♡</span>
+                            <span class="sv-heart sv-heart-empty">♡</span>
+                            <span class="sv-heart sv-heart-empty">♡</span>
+                            <span class="sv-heart sv-heart-empty">♡</span>
+                        </div>
+                        
+                        <!-- Stats -->
+                        <div class="grid grid-cols-3 gap-3 w-full">
+                            <div class="sv-inner p-3 text-center">
+                                <div class="sv-title text-sm md:text-base">上班</div>
+                                <div class="sv-label" style="font-size: 0.5rem;">扣半血哀悼</div>
+                            </div>
+                            <div class="sv-inner p-3 text-center">
+                                <div class="sv-title text-sm md:text-base">主线</div>
+                                <div class="sv-label" style="font-size: 0.5rem;">活着</div>
+                            </div>
+                            <div class="sv-inner p-3 text-center">
+                                <div class="sv-title text-sm md:text-base">∞</div>
+                                <div class="sv-label" style="font-size: 0.5rem;">热情（假笑中</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Mini Icons -->
+                        <div class="flex gap-2">
+                            <div class="sv-icon-box sv-bounce">📷</div>
+                            <div class="sv-icon-box sv-bounce" style="animation-delay: 0.3s;">🍳</div>
+                            <div class="sv-icon-box sv-bounce" style="animation-delay: 0.6s;">🎵</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right: Info Panels -->
+                    <div class="flex-1 space-y-4">
+                        
+                        <!-- Self Intro -->
+                        <div class="sv-inner p-5">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div class="sv-icon-box" style="width: 32px; height: 32px; font-size: 14px;">📝</div>
+                                <div class="sv-label text-xs">自我介绍</div>
+                            </div>
+                            <div class="sv-text text-[10px] md:text-xs leading-loose">
+                                一个白天认真打工、晚上认真生活的普通人类；<br>
+                                正在努力成为一个有趣的大人（进度条有点慢）。
+                            </div>
+                        </div>
+                        
+                        <!-- Skills -->
+                        <div class="sv-inner p-5">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="sv-icon-box" style="width: 32px; height: 32px; font-size: 14px;">⚔️</div>
+                                <div class="sv-label text-xs">技能等级</div>
+                            </div>
+                            <div class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="sv-text text-[9px] md:text-[11px]">🚗 救援政策</span>
+                                        <span class="sv-text text-[9px] md:text-[11px]" style="color: #7bc74a;">Lv.9</span>
+                                    </div>
+                                    <div class="sv-skill-bar"><div class="sv-skill-fill" style="width: 90%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="sv-text text-[9px] md:text-[11px]">💻 系统对接</span>
+                                        <span class="sv-text text-[9px] md:text-[11px]" style="color: #7bc74a;">Lv.8</span>
+                                    </div>
+                                    <div class="sv-skill-bar"><div class="sv-skill-fill" style="width: 80%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="sv-text text-[9px] md:text-[11px]">🤖 AI协调</span>
+                                        <span class="sv-text text-[9px] md:text-[11px]" style="color: #7bc74a;">Lv.5</span>
+                                    </div>
+                                    <div class="sv-skill-bar"><div class="sv-skill-fill" style="width: 50%;"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="sv-text text-[9px] md:text-[11px]">📋 供应商管理</span>
+                                        <span class="sv-text text-[9px] md:text-[11px]" style="color: #7bc74a;">Lv.7</span>
+                                    </div>
+                                    <div class="sv-skill-bar"><div class="sv-skill-fill" style="width: 70%;"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Contact -->
+                        <div class="sv-inner p-4 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="sv-icon-box" style="width: 32px; height: 32px; font-size: 14px;">✉️</div>
+                                <div>
+                                    <div class="sv-label text-[10px] mb-1">联系方式</div>
+                                    <a href="mailto:lei.haoran@byd.com" class="sv-text text-[10px] md:text-xs hover:opacity-70 transition-opacity">
+                                        lei.haoran@byd.com
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="sv-text text-[9px] md:text-[10px]" style="color: #8b6914;">
+                                打工人help打工人 ✨
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Decorations -->
+                <div class="mt-5 flex justify-between items-end">
+                    <div class="flex gap-3">
+                        <svg class="sv-flower" width="30" height="38" viewBox="0 0 30 38">
+                            <rect x="12" y="18" width="6" height="20" fill="#5a9a3a"/>
+                            <rect x="8" y="24" width="6" height="4" fill="#4a8a2a" transform="rotate(-30 11 26)"/>
+                            <circle cx="15" cy="12" r="8" fill="#ff6b9d"/>
+                            <circle cx="15" cy="12" r="4" fill="#ffd93d"/>
+                        </svg>
+                        <svg class="sv-flower" style="animation-delay: 0.5s;" width="26" height="32" viewBox="0 0 26 32">
+                            <rect x="10" y="15" width="6" height="17" fill="#5a9a3a"/>
+                            <circle cx="13" cy="10" r="7" fill="#87ceeb"/>
+                            <circle cx="13" cy="10" r="3.5" fill="#ffd93d"/>
+                        </svg>
+                        <svg class="sv-flower" style="animation-delay: 1s;" width="28" height="35" viewBox="0 0 28 35">
+                            <rect x="11" y="17" width="6" height="18" fill="#5a9a3a"/>
+                            <rect x="16" y="22" width="6" height="4" fill="#4a8a2a" transform="rotate(30 19 24)"/>
+                            <circle cx="14" cy="11" r="7" fill="#c4a44a"/>
+                            <circle cx="14" cy="11" r="4" fill="#8b6914"/>
+                        </svg>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="sv-sparkle" style="animation-delay: 0s; color: #ffd93d;">✦</span>
+                        <span class="sv-sparkle" style="animation-delay: 0.4s; color: #ff6b9d;">✦</span>
+                        <span class="sv-sparkle" style="animation-delay: 0.8s; color: #87ceeb;">✦</span>
+                        <span class="sv-sparkle" style="animation-delay: 1.2s; color: #7bc74a;">✦</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ground Decorations -->
+        <div class="max-w-5xl mx-auto mt-3 flex justify-between px-6">
+            <svg width="40" height="28" viewBox="0 0 40 28">
+                <rect x="0" y="20" width="40" height="8" fill="#5a9a3a"/>
+                <rect x="5" y="14" width="6" height="10" fill="#4a8a2a"/>
+                <rect x="15" y="10" width="6" height="14" fill="#4a8a2a"/>
+                <rect x="26" y="16" width="6" height="8" fill="#4a8a2a"/>
+            </svg>
+            <svg width="40" height="28" viewBox="0 0 40 28">
+                <rect x="0" y="20" width="40" height="8" fill="#5a9a3a"/>
+                <rect x="4" y="14" width="6" height="10" fill="#4a8a2a"/>
+                <rect x="18" y="12" width="6" height="12" fill="#4a8a2a"/>
+                <rect x="30" y="16" width="6" height="8" fill="#4a8a2a"/>
+            </svg>
+        </div>
+        
+        <!-- Sky Decorations -->
+        <div class="max-w-5xl mx-auto px-6 mt-4">
+            <div class="flex justify-between items-start">
+                <!-- Left Cloud -->
+                <svg class="sv-cloud" width="50" height="25" viewBox="0 0 50 25">
+                    <ellipse cx="15" cy="18" rx="12" ry="7" fill="#ffffff" opacity="0.9"/>
+                    <ellipse cx="30" cy="14" rx="15" ry="9" fill="#ffffff" opacity="0.9"/>
+                    <ellipse cx="42" cy="18" rx="10" ry="6" fill="#ffffff" opacity="0.9"/>
+                </svg>
+                <!-- Sun -->
+                <svg width="32" height="32" viewBox="0 0 32 32">
+                    <circle cx="16" cy="16" r="10" fill="#ffd93d"/>
+                    <line x1="16" y1="2" x2="16" y2="6" stroke="#ffd93d" stroke-width="2"/>
+                    <line x1="16" y1="26" x2="16" y2="30" stroke="#ffd93d" stroke-width="2"/>
+                    <line x1="2" y1="16" x2="6" y2="16" stroke="#ffd93d" stroke-width="2"/>
+                    <line x1="26" y1="16" x2="30" y2="16" stroke="#ffd93d" stroke-width="2"/>
+                    <line x1="7" y1="7" x2="10" y2="10" stroke="#ffd93d" stroke-width="2"/>
+                    <line x1="22" y1="22" x2="25" y2="25" stroke="#ffd93d" stroke-width="2"/>
+                    <line x1="22" y1="10" x2="25" y2="7" stroke="#ffd93d" stroke-width="2"/>
+                    <line x1="10" y1="22" x2="7" y2="25" stroke="#ffd93d" stroke-width="2"/>
+                </svg>
+                <!-- Right Cloud -->
+                <svg class="sv-cloud" style="animation-delay: 2s;" width="45" height="22" viewBox="0 0 45 22">
+                    <ellipse cx="12" cy="16" rx="10" ry="6" fill="#ffffff" opacity="0.85"/>
+                    <ellipse cx="26" cy="12" rx="13" ry="8" fill="#ffffff" opacity="0.85"/>
+                    <ellipse cx="38" cy="15" rx="9" ry="5" fill="#ffffff" opacity="0.85"/>
+                </svg>
+            </div>
+        </div>
+        
+        <!-- Scroll Hint -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2">
+            <div class="sv-text text-[9px] md:text-[10px] animate-bounce" style="color: #3d2b1f;">▼ 向下滚动 ▼</div>
+        </div>
+    </section>
+
+    <!-- Work Section - Stardew Valley Style -->
+    <section id="work" class="py-16 md:py-24 px-4 md:px-8" style="background: linear-gradient(180deg, #87ceeb 0%, #a8d8ea 20%, #c8e6b8 20%, #7bc74a 21%, #5a9a3a 100%);">
+        
+        <!-- Clouds -->
+        <div class="max-w-5xl mx-auto relative">
+            <svg class="absolute -top-6 left-8 sv-flower" width="70" height="28" viewBox="0 0 70 28">
+                <rect x="5" y="10" width="22" height="14" fill="white" rx="3"/>
+                <rect x="18" y="4" width="28" height="20" fill="white" rx="3"/>
+                <rect x="38" y="9" width="22" height="15" fill="white" rx="3"/>
+            </svg>
+            <svg class="absolute -top-10 right-12 sv-flower" style="animation-delay: 1s;" width="55" height="22" viewBox="0 0 55 22">
+                <rect x="4" y="8" width="18" height="11" fill="white" rx="2"/>
+                <rect x="15" y="3" width="22" height="16" fill="white" rx="2"/>
+                <rect x="30" y="7" width="18" height="12" fill="white" rx="2"/>
+            </svg>
+            <svg class="absolute top-16 left-[15%] sv-butterfly" width="18" height="14" viewBox="0 0 18 14">
+                <ellipse cx="5" cy="5" rx="4" ry="3" fill="#ff9ecd"/>
+                <ellipse cx="13" cy="5" rx="4" ry="3" fill="#ffb6db"/>
+                <ellipse cx="5" cy="10" rx="3" ry="2" fill="#ff9ecd"/>
+                <ellipse cx="13" cy="10" rx="3" ry="2" fill="#ffb6db"/>
+                <rect x="8" y="3" width="2" height="9" fill="#5a3e1b"/>
+            </svg>
+        </div>
+
+        <div class="max-w-4xl mx-auto mt-4">
+            <div class="sv-box p-5 md:p-8" style="font-family: 'Orbitron', sans-serif;">
+                
+                <!-- Title -->
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <div class="sv-icon-box" style="width: 32px; height: 32px; font-size: 14px;">💼</div>
+                        <div class="sv-title" style="font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: bold;">工作项目</div>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="sv-sparkle" style="animation-delay: 0s; color: #ffd93d;">✦</span>
+                        <span class="sv-sparkle" style="animation-delay: 0.4s; color: #ff6b9d;">✦</span>
+                        <span class="sv-sparkle" style="animation-delay: 0.8s; color: #87ceeb;">✦</span>
+                    </div>
+                </div>
+                
+                <hr class="sv-divider mb-6">
+                
+                <!-- Work Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Card 1 - Road Rescue -->
+                    <div class="sv-inner p-5 hover:shadow-md transition-all duration-300" style="cursor: default;">
+                        <div class="flex items-start gap-3 mb-3">
+                            <div class="sv-icon-box" style="width: 36px; height: 36px; font-size: 16px; flex-shrink: 0;">🚗</div>
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="sv-tag sv-tag-green">工作 01</span>
+                                    <span class="sv-tag sv-tag-gold">主理人</span>
+                                </div>
+                                <div class="sv-title" style="font-size: 0.9rem;">道路救援政策</div>
+                            </div>
+                        </div>
+                        <div class="sv-text" style="font-size: 0.75rem; line-height: 1.6; color: #6b5a4a;">
+                            关于救援政策的问题尽管问，建议意见也欢迎砸过来 ✨
+                        </div>
+                    </div>
+                    
+                    <!-- Card 2 - System -->
+                    <div class="sv-inner p-5 hover:shadow-md transition-all duration-300" style="cursor: default;">
+                        <div class="flex items-start gap-3 mb-3">
+                            <div class="sv-icon-box" style="width: 36px; height: 36px; font-size: 16px; flex-shrink: 0;">💻</div>
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="sv-tag sv-tag-blue">工作 02</span>
+                                    <span class="sv-tag sv-tag-gold">对接人</span>
+                                </div>
+                                <div class="sv-title" style="font-size: 0.9rem;">智慧客服·BSS系统</div>
+                            </div>
+                        </div>
+                        <div class="sv-text" style="font-size: 0.75rem; line-height: 1.6; color: #6b5a4a;">
+                            立志做一个"无情"但高效的业务方，无情绪只有结果 🤝
+                        </div>
+                    </div>
+                    
+                    <!-- Card 3 - AI -->
+                    <div class="sv-inner p-5 hover:shadow-md transition-all duration-300" style="cursor: default;">
+                        <div class="flex items-start gap-3 mb-3">
+                            <div class="sv-icon-box" style="width: 36px; height: 36px; font-size: 16px; flex-shrink: 0;">🤖</div>
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="sv-tag sv-tag-pink">工作 03</span>
+                                    <span class="sv-tag sv-tag-blue">进化中</span>
+                                </div>
+                                <div class="sv-title" style="font-size: 0.9rem;">AI接口人</div>
+                            </div>
+                        </div>
+                        <div class="sv-text" style="font-size: 0.75rem; line-height: 1.6; color: #6b5a4a;">
+                            进化中｜在学了在学了在学了...噫？好像卡住了 📚
+                        </div>
+                    </div>
+                    
+                    <!-- Card 4 - Supplier -->
+                    <div class="sv-inner p-5 hover:shadow-md transition-all duration-300" style="cursor: default;">
+                        <div class="flex items-start gap-3 mb-3">
+                            <div class="sv-icon-box" style="width: 36px; height: 36px; font-size: 16px; flex-shrink: 0;">📋</div>
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="sv-tag sv-tag-green">工作 04</span>
+                                    <span class="sv-tag sv-tag-gold">执行人</span>
+                                </div>
+                                <div class="sv-title" style="font-size: 0.9rem;">供应商管理</div>
+                            </div>
+                        </div>
+                        <div class="sv-text" style="font-size: 0.75rem; line-height: 1.6; color: #6b5a4a;">
+                            偶尔调研打扰，提前说声谢谢啦～打工人不骗打工人 🙏
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom -->
+                <div class="mt-6 flex justify-between items-end">
+                    <div class="flex gap-2">
+                        <svg class="sv-flower" width="24" height="30" viewBox="0 0 24 30">
+                            <rect x="10" y="14" width="4" height="14" fill="#5a9a3a"/>
+                            <circle cx="12" cy="10" r="5" fill="#ff6b9d"/>
+                            <circle cx="12" cy="10" r="2.5" fill="#ffd93d"/>
+                        </svg>
+                        <svg class="sv-flower" style="animation-delay: 0.5s;" width="20" height="26" viewBox="0 0 20 26">
+                            <rect x="8" y="13" width="4" height="12" fill="#5a9a3a"/>
+                            <circle cx="10" cy="8" r="5" fill="#87ceeb"/>
+                            <circle cx="10" cy="8" r="2.5" fill="#ffd93d"/>
+                        </svg>
+                    </div>
+                    <div class="sv-text" style="font-size: 0.7rem; color: #8b6914;">打工人help打工人 ✨</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Decorations -->
+        <div class="max-w-5xl mx-auto mt-6 px-8">
+            <div class="flex justify-between items-center">
+                <!-- Grass Patch 1 -->
+                <svg width="50" height="20" viewBox="0 0 50 20">
+                    <rect x="0" y="15" width="50" height="5" fill="#5a9a3a"/>
+                    <rect x="5" y="10" width="4" height="7" fill="#4a8a2a"/>
+                    <rect x="15" y="8" width="4" height="9" fill="#4a8a2a"/>
+                    <rect x="25" y="11" width="4" height="6" fill="#4a8a2a"/>
+                    <rect x="35" y="9" width="4" height="8" fill="#4a8a2a"/>
+                    <rect x="43" y="12" width="4" height="5" fill="#4a8a2a"/>
+                </svg>
+                <!-- Butterfly -->
+                <svg class="sv-butterfly" width="20" height="16" viewBox="0 0 20 16">
+                    <ellipse cx="6" cy="6" rx="4" ry="3" fill="#87ceeb"/>
+                    <ellipse cx="14" cy="6" rx="4" ry="3" fill="#9fd5fa"/>
+                    <ellipse cx="6" cy="11" rx="3" ry="2" fill="#87ceeb"/>
+                    <ellipse cx="14" cy="11" rx="3" ry="2" fill="#9fd5fa"/>
+                    <rect x="9" y="4" width="2" height="10" fill="#5a3e1b"/>
+                </svg>
+                <!-- Grass Patch 2 -->
+                <svg width="50" height="20" viewBox="0 0 50 20">
+                    <rect x="0" y="15" width="50" height="5" fill="#5a9a3a"/>
+                    <rect x="3" y="12" width="4" height="5" fill="#4a8a2a"/>
+                    <rect x="12" y="7" width="4" height="10" fill="#4a8a2a"/>
+                    <rect x="24" y="10" width="4" height="7" fill="#4a8a2a"/>
+                    <rect x="36" y="8" width="4" height="9" fill="#4a8a2a"/>
+                    <rect x="44" y="11" width="4" height="6" fill="#4a8a2a"/>
+                </svg>
+            </div>
+        </div>
+        
+        <!-- Ground -->
+        <div class="max-w-5xl mx-auto mt-2 flex justify-between px-8">
+            <svg width="30" height="16" viewBox="0 0 30 16">
+                <rect x="0" y="12" width="30" height="4" fill="#5a9a3a"/>
+                <rect x="4" y="8" width="4" height="6" fill="#4a8a2a"/>
+                <rect x="12" y="6" width="4" height="8" fill="#4a8a2a"/>
+                <rect x="22" y="10" width="4" height="4" fill="#4a8a2a"/>
+            </svg>
+            <svg width="30" height="16" viewBox="0 0 30 16">
+                <rect x="0" y="12" width="30" height="4" fill="#5a9a3a"/>
+                <rect x="2" y="9" width="4" height="5" fill="#4a8a2a"/>
+                <rect x="16" y="7" width="4" height="7" fill="#4a8a2a"/>
+                <rect x="24" y="10" width="4" height="4" fill="#4a8a2a"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Life Section - Stardew Valley Style -->
+    <section id="life" class="py-16 md:py-24 px-4 md:px-8" style="background: #fdf5e6;">
+        <div class="max-w-4xl mx-auto">
+            <div class="sv-box p-5 md:p-8" style="font-family: 'Orbitron', sans-serif;">
+                
+                <!-- Title -->
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <div class="sv-icon-box" style="width: 32px; height: 32px; font-size: 14px;">🌻</div>
+                        <div class="sv-title" style="font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: bold;">生活日常</div>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="sv-sparkle" style="animation-delay: 0s; color: #ffd93d;">✦</span>
+                        <span class="sv-sparkle" style="animation-delay: 0.4s; color: #7bc74a;">✦</span>
+                        <span class="sv-sparkle" style="animation-delay: 0.8s; color: #ff6b9d;">✦</span>
+                    </div>
+                </div>
+                
+                <hr class="sv-divider mb-6">
+                
+                <div class="sv-text" style="font-size: 0.8rem; text-align: center; margin-bottom: 1rem; color: #8b6914;">
+                    工作是为了更好的生活...大概吧
+                </div>
+                
+                <!-- Ferris Wheel Photo Carousel -->
+                <div class="sv-inner p-4 mb-4" id="pixel-carousel-wrapper" style="background: linear-gradient(180deg, #f5e6c8 0%, #fdf5e6 100%);">
+                    <style>
+                        .ferris-container {
+                            width: 100%;
+                            height: 560px;
+                            position: relative;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        .ferris-wheel {
+                            width: 440px;
+                            height: 440px;
+                            position: relative;
+                        }
+                        .ferris-center {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 46px;
+                            height: 46px;
+                            background: radial-gradient(circle, #ff6b35 0%, #c4562c 50%, #8b3a1a 100%);
+                            border-radius: 50%;
+                            border: 4px solid #d4a574;
+                            z-index: 30;
+                            box-shadow: 0 0 15px rgba(255,107,53,0.6), inset 0 0 10px rgba(255,215,0,0.3);
+                        }
+                        .ferris-center::before {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 18px;
+                            height: 18px;
+                            background: #ffd700;
+                            border-radius: 50%;
+                            box-shadow: 0 0 10px #ffd700, inset 0 0 5px rgba(255,107,53,0.5);
+                        }
+                        .ferris-center::after {
+                            content: '';
+                            position: absolute;
+                            top: -5px;
+                            left: -5px;
+                            right: -5px;
+                            bottom: -5px;
+                            border: 2px solid #d4a574;
+                            border-radius: 50%;
+                            opacity: 0.6;
+                        }
+                        .ferris-spoke {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 8px;
+                            height: 190px;
+                            background: linear-gradient(to bottom, #d4a574, #c4a44a, #8b6914);
+                            transform-origin: top center;
+                            z-index: 15;
+                        }
+                        .ferris-spoke::after {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 10px;
+                            height: 10px;
+                            background: #ffd700;
+                            border-radius: 50%;
+                            box-shadow: 0 0 5px #ffd700;
+                        }
+                        .ferris-frame {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 380px;
+                            height: 380px;
+                            transform: translate(-50%, -50%);
+                            border: 10px solid #d4a574;
+                            border-radius: 50%;
+                            z-index: 8;
+                            box-shadow: inset 0 0 12px rgba(139,105,20,0.3);
+                        }
+                        .ferris-frame::before {
+                            content: '';
+                            position: absolute;
+                            top: 50%;
+                            left: 0;
+                            width: 100%;
+                            height: 10px;
+                            background: linear-gradient(90deg, #8b6914, #d4a574, #8b6914);
+                            transform: translateY(-50%);
+                            z-index: 1;
+                        }
+                        .ferris-frame::after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 50%;
+                            width: 10px;
+                            height: 100%;
+                            background: linear-gradient(180deg, #8b6914, #d4a574, #8b6914);
+                            transform: translateX(-50%);
+                            z-index: 1;
+                        }
+                        .ferris-frame-detail {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            width: 380px;
+                            height: 380px;
+                            transform: translate(-50%, -50%);
+                            border-radius: 50%;
+                            z-index: 9;
+                        }
+                        .ferris-frame-ribbon {
+                            position: absolute;
+                            width: 20px;
+                            height: 10px;
+                            background: #ff6b35;
+                            border-radius: 2px;
+                        }
+                        .ferris-frame-dot {
+                            position: absolute;
+                            width: 8px;
+                            height: 8px;
+                            background: #ffd700;
+                            border-radius: 50%;
+                            box-shadow: 0 0 5px #ffd700;
+                        }
+                        .ferris-cabin {
+                            position: absolute;
+                            width: 100px;
+                            height: 115px;
+                            cursor: pointer;
+                            transition: all 0.5s ease;
+                            z-index: 20;
+                        }
+                        .ferris-cabin-inner {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        .ferris-chain {
+                            width: 5px;
+                            height: 20px;
+                            background: repeating-linear-gradient(
+                                0deg,
+                                #8b6914 0px,
+                                #8b6914 3px,
+                                #d4a574 3px,
+                                #d4a574 6px
+                            );
+                            margin-bottom: 3px;
+                        }
+                        .ferris-chain::before {
+                            content: '';
+                            position: absolute;
+                            top: -8px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 18px;
+                            height: 8px;
+                            background: linear-gradient(to bottom, #d4a574, #8b6914);
+                            border-radius: 2px;
+                        }
+                        .ferris-photo-frame {
+                            width: 82px;
+                            height: 96px;
+                            position: relative;
+                            overflow: hidden;
+                        }
+                        .ferris-frame-outer {
+                            position: absolute;
+                            top: -5px;
+                            left: -5px;
+                            right: -5px;
+                            bottom: -5px;
+                            background: linear-gradient(135deg, #c4a44a 0%, #d4a574 50%, #c4a44a 100%);
+                            border-radius: 3px;
+                            box-shadow: 4px 4px 0 #8b6914;
+                        }
+                        .ferris-frame-inner {
+                            position: absolute;
+                            top: 3px;
+                            left: 3px;
+                            right: 3px;
+                            bottom: 3px;
+                            background: linear-gradient(135deg, #d4a574 0%, #f5e6c8 50%, #d4a574 100%);
+                            border-radius: 2px;
+                        }
+                        .ferris-frame-corner {
+                            position: absolute;
+                            width: 12px;
+                            height: 12px;
+                            background: linear-gradient(135deg, #ffd700 0%, #ff6b35 100%);
+                            border-radius: 2px;
+                            z-index: 5;
+                        }
+                        .ferris-frame-corner.tl { top: -3px; left: -3px; transform: rotate(-45deg); }
+                        .ferris-frame-corner.tr { top: -3px; right: -3px; transform: rotate(45deg); }
+                        .ferris-frame-corner.bl { bottom: -3px; left: -3px; transform: rotate(45deg); }
+                        .ferris-frame-corner.br { bottom: -3px; right: -3px; transform: rotate(-45deg); }
+                        .ferris-frame-gem {
+                            position: absolute;
+                            top: 4px;
+                            right: 4px;
+                            width: 8px;
+                            height: 8px;
+                            background: #ff6b35;
+                            border-radius: 50%;
+                            box-shadow: 0 0 5px #ff6b35;
+                            z-index: 6;
+                        }
+                        .ferris-photo {
+                            position: absolute;
+                            top: 8px;
+                            left: 8px;
+                            right: 8px;
+                            bottom: 8px;
+                            background: #fff8dc;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            overflow: hidden;
+                        }
+                        .ferris-photo img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                            image-rendering: pixelated;
+                        }
+                        .ferris-support-left, .ferris-support-right {
+                            position: absolute;
+                            bottom: 15px;
+                            width: 14px;
+                            height: 145px;
+                            background: linear-gradient(to right, #8b6914, #d4a574, #8b6914);
+                            z-index: 5;
+                        }
+                        .ferris-support-left {
+                            left: calc(50% - 145px);
+                            transform: rotate(-30deg);
+                            transform-origin: bottom center;
+                        }
+                        .ferris-support-right {
+                            right: calc(50% - 145px);
+                            transform: rotate(30deg);
+                            transform-origin: bottom center;
+                        }
+                        .ferris-support-left::after, .ferris-support-right::after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            height: 100%;
+                            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+                        }
+                        .ferris-base {
+                            width: 360px;
+                            height: 52px;
+                            position: relative;
+                            margin-top: 10px;
+                            z-index: 10;
+                        }
+                        .ferris-base-top {
+                            position: absolute;
+                            top: 0;
+                            left: 12px;
+                            right: 12px;
+                            height: 18px;
+                            background: linear-gradient(to bottom, #d4a574, #c4a44a);
+                            border-radius: 5px 5px 0 0;
+                        }
+                        .ferris-base-middle {
+                            position: absolute;
+                            top: 16px;
+                            left: 0;
+                            right: 0;
+                            height: 22px;
+                            background: linear-gradient(to bottom, #ff6b35, #c4562c);
+                            border-radius: 2px;
+                        }
+                        .ferris-base-bottom {
+                            position: absolute;
+                            bottom: 0;
+                            left: 6px;
+                            right: 6px;
+                            height: 16px;
+                            background: linear-gradient(to bottom, #8b6914, #5a400a);
+                            border-radius: 0 0 5px 5px;
+                            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+                        }
+                        .ferris-base-dot {
+                            position: absolute;
+                            top: 20px;
+                            width: 10px;
+                            height: 10px;
+                            background: #ffd700;
+                            border-radius: 50%;
+                            box-shadow: 0 0 5px #ffd700;
+                        }
+                        .ferris-base-shadow {
+                            position: absolute;
+                            bottom: -10px;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 320px;
+                            height: 16px;
+                            background: rgba(139,105,20,0.3);
+                            border-radius: 50%;
+                            filter: blur(5px);
+                        }
+                        .ferris-light {
+                            position: absolute;
+                            width: 6px;
+                            height: 6px;
+                            background: #ff0;
+                            border-radius: 50%;
+                            animation: twinkle 0.8s ease-in-out infinite;
+                        }
+                        @keyframes twinkle {
+                            0%, 100% { opacity: 1; box-shadow: 0 0 10px #ff0, 0 0 15px #ff0; }
+                            50% { opacity: 0.4; box-shadow: 0 0 3px #ff0; }
+                        }
+                        .ferris-hint {
+                            font-family: 'Orbitron', sans-serif;
+                            font-size: 0.5rem;
+                            color: #8b6914;
+                            text-align: center;
+                            margin-top: 15px;
+                            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+                        }
+                    </style>
+                    
+                    <div class="text-center mb-2">
+                        <span class="sv-title text-xs">🎡 摄影</span>
+                        <span class="sv-label ml-2" style="font-size: 0.5rem;">发现生活中的小美好</span>
+                    </div>
+                    
+                    <div class="ferris-container">
+                        <div class="ferris-wheel" id="ferris-wheel">
+                            <div class="ferris-center"></div>
+                            
+                            <div class="ferris-frame"></div>
+                            
+                            <svg class="ferris-frame-detail" viewBox="0 0 290 290">
+                                <defs>
+                                    <pattern id="ribbon" patternUnits="userSpaceOnUse" width="30" height="12">
+                                        <rect x="0" y="2" width="12" height="8" fill="#ff6b35"/>
+                                        <rect x="18" y="2" width="12" height="8" fill="#fff"/>
+                                    </pattern>
+                                </defs>
+                                <circle cx="145" cy="145" r="141" fill="none" stroke="url(#ribbon)" stroke-width="8"/>
+                            </svg>
+                            
+                            <div class="ferris-spoke" style="transform: translateX(-50%) rotate(0deg);"></div>
+                            <div class="ferris-spoke" style="transform: translateX(-50%) rotate(45deg);"></div>
+                            <div class="ferris-spoke" style="transform: translateX(-50%) rotate(90deg);"></div>
+                            <div class="ferris-spoke" style="transform: translateX(-50%) rotate(135deg);"></div>
+                            <div class="ferris-spoke" style="transform: translateX(-50%) rotate(180deg);"></div>
+                            <div class="ferris-spoke" style="transform: translateX(-50%) rotate(225deg);"></div>
+                            <div class="ferris-spoke" style="transform: translateX(-50%) rotate(270deg);"></div>
+                            <div class="ferris-spoke" style="transform: translateX(-50%) rotate(315deg);"></div>
+                            
+                            <div class="ferris-light" style="top: 15px; left: 50%; transform: translateX(-50%); animation-delay: 0s;"></div>
+                            <div class="ferris-light" style="top: 50%; left: 15px; transform: translateY(-50%); animation-delay: 0.15s;"></div>
+                            <div class="ferris-light" style="bottom: 15px; left: 50%; transform: translateX(-50%); animation-delay: 0.3s;"></div>
+                            <div class="ferris-light" style="top: 50%; right: 15px; transform: translateY(-50%); animation-delay: 0.45s;"></div>
+                            <div class="ferris-light" style="top: 25%; left: 25%; animation-delay: 0.1s;"></div>
+                            <div class="ferris-light" style="top: 25%; right: 25%; animation-delay: 0.25s;"></div>
+                            <div class="ferris-light" style="bottom: 25%; left: 25%; animation-delay: 0.35s;"></div>
+                            <div class="ferris-light" style="bottom: 25%; right: 25%; animation-delay: 0.5s;"></div>
+                            
+                            <div id="ferris-cabins">
+                                <!-- Cabins generated by JS -->
+                            </div>
+                        </div>
+                        
+                        <div class="ferris-support-left"></div>
+                        <div class="ferris-support-right"></div>
+                        
+                        <div class="ferris-base">
+                            <div class="ferris-base-top"></div>
+                            <div class="ferris-base-middle">
+                                <div class="ferris-base-dot" style="left: 20px;"></div>
+                                <div class="ferris-base-dot" style="left: 60px;"></div>
+                                <div class="ferris-base-dot" style="left: 100px;"></div>
+                                <div class="ferris-base-dot" style="left: 140px;"></div>
+                                <div class="ferris-base-dot" style="left: 180px;"></div>
+                                <div class="ferris-base-dot" style="left: 220px;"></div>
+                                <div class="ferris-base-dot" style="left: 260px;"></div>
+                            </div>
+                            <div class="ferris-base-bottom"></div>
+                            <div class="ferris-base-shadow"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="ferris-hint">🎠 拖拽旋转 · 自动播放(2秒) · 点击查看大图</div>
+                </div>
+                
+                <div class="text-center mb-2">
+                    <span class="sv-title text-xs">🎵 音乐</span>
+                    <span class="sv-label ml-2" style="font-size: 0.5rem;">只要音乐还记得</span>
+                </div>
+                
+                <!-- Vinyl Records Grid -->
+                <style>
+                    .vinyl-container {
+                        display: grid;
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 2rem;
+                        max-width: 500px;
+                        margin: 0 auto;
+                    }
+                    .vinyl-record {
+                        width: 180px;
+                        height: 180px;
+                        position: relative;
+                        cursor: pointer;
+                        transition: transform 0.3s ease;
+                        justify-self: center;
+                    }
+                    .vinyl-record:hover {
+                        transform: scale(1.05) rotate(5deg);
+                    }
+                    .vinyl-disc {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 50%;
+                        background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+                        border: 4px solid #3d3d3d;
+                        box-shadow: 5px 5px 0 #1a1a1a, inset 0 0 12px rgba(0,0,0,0.5);
+                        position: relative;
+                        overflow: hidden;
+                    }
+                    .vinyl-grooves {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        border-radius: 50%;
+                        border: 3px solid #2d2d2d;
+                    }
+                    .vinyl-label {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 70px;
+                        height: 70px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        border: 4px solid #ffd700;
+                        box-shadow: 0 0 10px rgba(255,215,0,0.3);
+                    }
+                    .vinyl-label img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        image-rendering: pixelated;
+                    }
+                    .vinyl-center {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        width: 16px;
+                        height: 16px;
+                        background: #8b6914;
+                        border-radius: 50%;
+                        border: 3px solid #c4a44a;
+                        z-index: 10;
+                    }
+                    .vinyl-shadow {
+                        position: absolute;
+                        bottom: -10px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 150px;
+                        height: 15px;
+                        background: rgba(139,105,20,0.3);
+                        border-radius: 50%;
+                        filter: blur(5px);
+                    }
+                    .vinyl-title {
+                        text-align: center;
+                        margin-top: 0.7rem;
+                        font-family: 'Orbitron', sans-serif;
+                        font-size: 0.85rem;
+                        color: #8b6914;
+                    }
+                    .vinyl-artist {
+                        text-align: center;
+                        font-family: 'Orbitron', sans-serif;
+                        font-size: 0.55rem;
+                        color: #6b5a4a;
+                    }
+                    .sticky-note {
+                        position: absolute;
+                        padding: 8px 10px;
+                        border-radius: 3px;
+                        font-family: 'Ma Shan Zheng', cursive, 'ZCOOL KuaiLe', cursive, cursive;
+                        font-size: 0.7rem;
+                        color: #3d2b1f;
+                        box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+                        transform-origin: top left;
+                        z-index: 20;
+                        background: repeating-linear-gradient(
+                            transparent,
+                            transparent 10px,
+                            #e5e5e5 10px,
+                            #e5e5e5 11px
+                        );
+                        background-color: #ffffff;
+                        border: none;
+                    }
+                    .sticky-note.yellow {
+                        transform: rotate(-8deg);
+                    }
+                    .sticky-note.pink {
+                        transform: rotate(5deg);
+                    }
+                    .sticky-note.blue {
+                        transform: rotate(-3deg);
+                    }
+                    .sticky-note::after {
+                        content: '';
+                        position: absolute;
+                        top: 2px;
+                        right: 2px;
+                        width: 4px;
+                        height: 4px;
+                        background: rgba(139,105,20,0.3);
+                        border-radius: 50%;
+                    }
+                </style>
+                
+                <div class="vinyl-container">
+                    <!-- Vinyl 1 -->
+                    <div class="vinyl-record">
+                        <div class="vinyl-disc">
+                            <div class="sticky-note yellow" style="top: 8px; left: 8px; transform: rotate(-5deg);">消愁</div>
+                            <div class="sticky-note pink" style="top: 48px; right: 5px; transform: rotate(8deg);">一程山路</div>
+                            <div class="sticky-note blue" style="bottom: 12px; left: 35px; transform: rotate(-3deg);">小王日记</div>
+                            <div class="vinyl-grooves" style="width: 165px; height: 165px;"></div>
+                            <div class="vinyl-grooves" style="width: 145px; height: 145px;"></div>
+                            <div class="vinyl-grooves" style="width: 125px; height: 125px;"></div>
+                            <div class="vinyl-grooves" style="width: 105px; height: 105px;"></div>
+                            <div class="vinyl-label">
+                                <img src="./m.jpg" alt="Album Cover">
+                            </div>
+                            <div class="vinyl-center"></div>
+                        </div>
+                        <div class="vinyl-shadow"></div>
+                        <div class="vinyl-title">毛不易</div>
+                    </div>
+                    
+                    <!-- Vinyl 2 -->
+                    <div class="vinyl-record">
+                        <div class="vinyl-disc">
+                            <div class="sticky-note yellow" style="top: 5px; right: 8px; transform: rotate(6deg);">逆光</div>
+                            <div class="sticky-note pink" style="bottom: 45px; left: 5px; transform: rotate(-7deg);">雨天</div>
+                            <div class="sticky-note blue" style="bottom: 8px; right: 25px; transform: rotate(4deg);">我怀念的</div>
+                            <div class="vinyl-grooves" style="width: 165px; height: 165px;"></div>
+                            <div class="vinyl-grooves" style="width: 145px; height: 145px;"></div>
+                            <div class="vinyl-grooves" style="width: 125px; height: 125px;"></div>
+                            <div class="vinyl-grooves" style="width: 105px; height: 105px;"></div>
+                            <div class="vinyl-label">
+                                <img src="./s.jpg" alt="Album Cover">
+                            </div>
+                            <div class="vinyl-center"></div>
+                        </div>
+                        <div class="vinyl-shadow"></div>
+                        <div class="vinyl-title">孙燕姿</div>
+                    </div>
+                    
+                    <!-- Vinyl 3 -->
+                    <div class="vinyl-record">
+                        <div class="vinyl-disc">
+                            <div class="sticky-note yellow" style="top: 10px; left: 20px; transform: rotate(-8deg);">起风了</div>
+                            <div class="sticky-note pink" style="top: 50px; left: 10px; transform: rotate(10deg);">歌颂者</div>
+                            <div class="sticky-note blue" style="bottom: 15px; right: 10px; transform: rotate(-4deg);">他夏了夏天</div>
+                            <div class="vinyl-grooves" style="width: 165px; height: 165px;"></div>
+                            <div class="vinyl-grooves" style="width: 145px; height: 145px;"></div>
+                            <div class="vinyl-grooves" style="width: 125px; height: 125px;"></div>
+                            <div class="vinyl-grooves" style="width: 105px; height: 105px;"></div>
+                            <div class="vinyl-label">
+                                <img src="./w.jpg" alt="Album Cover">
+                            </div>
+                            <div class="vinyl-center"></div>
+                        </div>
+                        <div class="vinyl-shadow"></div>
+                        <div class="vinyl-title">吴青峰</div>
+                    </div>
+                    
+                    <!-- Vinyl 4 -->
+                    <div class="vinyl-record">
+                        <div class="vinyl-disc">
+                            <div class="sticky-note yellow" style="top: 8px; left: 15px; font-size: 0.45rem; padding: 5px 6px; transform: rotate(-6deg);">永远不变</div>
+                            <div class="sticky-note pink" style="bottom: 18px; left: 12px; transform: rotate(7deg);">克林</div>
+                            <div class="vinyl-grooves" style="width: 165px; height: 165px;"></div>
+                            <div class="vinyl-grooves" style="width: 145px; height: 145px;"></div>
+                            <div class="vinyl-grooves" style="width: 125px; height: 125px;"></div>
+                            <div class="vinyl-grooves" style="width: 105px; height: 105px;"></div>
+                            <div class="vinyl-label">
+                                <img src="./l.jpg" alt="Album Cover">
+                            </div>
+                            <div class="vinyl-center"></div>
+                        </div>
+                        <div class="vinyl-shadow"></div>
+                        <div class="vinyl-title">棱镜</div>
+                    </div>
+                </div>
+                
+
+                
+                <!-- Bottom Decor -->
+                <div class="mt-4 flex justify-between items-end">
+                    <div class="flex gap-2">
+                        <svg class="sv-flower" width="22" height="28" viewBox="0 0 22 28">
+                            <rect x="9" y="14" width="4" height="12" fill="#5a9a3a"/>
+                            <circle cx="11" cy="10" r="5" fill="#ff6b9d"/>
+                            <circle cx="11" cy="10" r="2.5" fill="#ffd93d"/>
+                        </svg>
+                        <svg class="sv-flower" style="animation-delay: 0.5s;" width="20" height="24" viewBox="0 0 20 24">
+                            <rect x="8" y="12" width="4" height="10" fill="#5a9a3a"/>
+                            <circle cx="10" cy="8" r="5" fill="#87ceeb"/>
+                            <circle cx="10" cy="8" r="2.5" fill="#ffd93d"/>
+                        </svg>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <svg class="sv-butterfly" width="16" height="12" viewBox="0 0 16 12">
+                            <ellipse cx="5" cy="4" rx="3" ry="2.5" fill="#ff9ecd"/>
+                            <ellipse cx="11" cy="4" rx="3" ry="2.5" fill="#ffb6db"/>
+                            <ellipse cx="5" cy="8" rx="2.5" ry="2" fill="#ff9ecd"/>
+                            <ellipse cx="11" cy="8" rx="2.5" ry="2" fill="#ffb6db"/>
+                            <rect x="7" y="3" width="2" height="7" fill="#5a3e1b"/>
+                        </svg>
+                        <div class="sv-text" style="font-size: 0.7rem; color: #8b6914;">打工人help打工人 ✨</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section - Stardew Valley Style -->
+    <section id="contact" class="py-16 md:py-24 px-4 md:px-8" style="background: linear-gradient(180deg, #fdf5e6 0%, #c8e6b8 80%, #7bc74a 80%, #5a9a3a 100%);">
+        <div class="max-w-4xl mx-auto">
+            <div class="sv-box p-5 md:p-8 text-center">
+                
+                <div class="flex items-center justify-center gap-2 mb-3">
+                    <div class="sv-icon-box" style="width: 32px; height: 32px; font-size: 14px;">✉️</div>
+                    <div class="sv-title text-sm md:text-lg">保持联系</div>
+                </div>
+                
+                <hr class="sv-divider mb-5">
+                
+                <div class="sv-text text-xs md:text-sm leading-loose mb-6" style="color: #6b5a4a;">
+                    工作顺利不加班，沟通顺畅无阻点，早上打卡、中午打卡、晚上打卡！
+                </div>
+                
+                <a href="mailto:lei.haoran@byd.com" 
+                   class="inline-block sv-inner px-8 py-3 sv-title text-xs md:text-sm hover:shadow-md transition-all">
+                    ✦ GOOD LUCK ✦
+                </a>
+                
+                <!-- Decor -->
+                <div class="mt-6 flex justify-center gap-3">
+                    <svg class="sv-flower" width="22" height="28" viewBox="0 0 22 28">
+                        <rect x="9" y="14" width="4" height="12" fill="#5a9a3a"/>
+                        <circle cx="11" cy="10" r="5" fill="#ff6b9d"/>
+                        <circle cx="11" cy="10" r="2.5" fill="#ffd93d"/>
+                    </svg>
+                    <svg class="sv-butterfly" width="18" height="14" viewBox="0 0 18 14">
+                        <ellipse cx="5" cy="5" rx="3.5" ry="2.5" fill="#87ceeb"/>
+                        <ellipse cx="13" cy="5" rx="3.5" ry="2.5" fill="#9fd5fa"/>
+                        <ellipse cx="5" cy="10" rx="2.5" ry="2" fill="#87ceeb"/>
+                        <ellipse cx="13" cy="10" rx="2.5" ry="2" fill="#9fd5fa"/>
+                        <rect x="8" y="3" width="2" height="9" fill="#5a3e1b"/>
+                    </svg>
+                    <svg class="sv-flower" style="animation-delay: 0.5s;" width="18" height="24" viewBox="0 0 18 24">
+                        <rect x="7" y="12" width="4" height="10" fill="#5a9a3a"/>
+                        <circle cx="9" cy="8" r="5" fill="#87ceeb"/>
+                        <circle cx="9" cy="8" r="2.5" fill="#ffd93d"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Decorative Grass -->
+        <div class="max-w-5xl mx-auto mt-6 px-8">
+            <div class="flex justify-between items-center">
+                <svg width="60" height="22" viewBox="0 0 60 22">
+                    <rect x="0" y="16" width="60" height="6" fill="#5a9a3a"/>
+                    <rect x="5" y="10" width="4" height="8" fill="#4a8a2a"/>
+                    <rect x="15" y="7" width="4" height="11" fill="#4a8a2a"/>
+                    <rect x="28" y="12" width="4" height="6" fill="#4a8a2a"/>
+                    <rect x="40" y="8" width="4" height="10" fill="#4a8a2a"/>
+                    <rect x="52" y="11" width="4" height="7" fill="#4a8a2a"/>
+                </svg>
+                <svg class="sv-cloud" width="40" height="18" viewBox="0 0 40 18">
+                    <ellipse cx="10" cy="14" rx="8" ry="5" fill="#ffffff" opacity="0.8"/>
+                    <ellipse cx="22" cy="10" rx="10" ry="6" fill="#ffffff" opacity="0.8"/>
+                    <ellipse cx="32" cy="13" rx="7" ry="4" fill="#ffffff" opacity="0.8"/>
+                </svg>
+                <svg width="60" height="22" viewBox="0 0 60 22">
+                    <rect x="0" y="16" width="60" height="6" fill="#5a9a3a"/>
+                    <rect x="3" y="12" width="4" height="6" fill="#4a8a2a"/>
+                    <rect x="14" y="6" width="4" height="12" fill="#4a8a2a"/>
+                    <rect x="26" y="9" width="4" height="9" fill="#4a8a2a"/>
+                    <rect x="38" y="7" width="4" height="11" fill="#4a8a2a"/>
+                    <rect x="50" y="13" width="4" height="5" fill="#4a8a2a"/>
+                </svg>
+            </div>
+        </div>
+        
+        <!-- Ground -->
+        <div class="max-w-5xl mx-auto mt-2 flex justify-between px-8">
+            <svg width="35" height="16" viewBox="0 0 35 16">
+                <rect x="0" y="12" width="35" height="4" fill="#5a9a3a"/>
+                <rect x="5" y="8" width="4" height="6" fill="#4a8a2a"/>
+                <rect x="14" y="6" width="4" height="8" fill="#4a8a2a"/>
+                <rect x="26" y="10" width="4" height="4" fill="#4a8a2a"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Footer - Stardew Valley Style -->
+    <footer class="py-8 px-4 md:px-8" style="background: #5a9a3a; border-top: 4px solid #4a8a2a;">
+        <div class="max-w-7xl mx-auto">
+            <div class="sv-text text-[9px] md:text-[10px] text-center" style="color: #fdf5e6;">
+                © 2026 雷浩然 · 认真打工，快乐生活
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Gallery Modal - Stardew Valley Style -->
+    <div id="gallery-modal" class="fixed inset-0 z-[999] hidden flex-col items-center justify-center" style="background: rgba(61,43,31,0.95);">
+        <button id="gallery-close" class="absolute top-4 right-4 hover:opacity-70 transition-opacity z-10 sv-text text-lg" style="color: #f5e6c8;">
+            ✕
+        </button>
+        <button id="gallery-prev" class="absolute left-4 top-1/2 -translate-y-1/2 hover:opacity-70 transition-opacity z-10 hidden md:block sv-text text-2xl" style="color: #f5e6c8;">
+            ←
+        </button>
+        <button id="gallery-next" class="absolute right-4 top-1/2 -translate-y-1/2 hover:opacity-70 transition-opacity z-10 hidden md:block sv-text text-2xl" style="color: #f5e6c8;">
+            →
+        </button>
+        <div class="w-full max-w-4xl px-4 md:px-8">
+            <div id="gallery-title" class="text-center mb-4">
+                <span class="sv-text text-sm" style="color: #c4a44a;" id="gallery-category"></span>
+            </div>
+            <div id="gallery-image-container" class="flex items-center justify-center sv-inner max-h-[65vh]">
+                <img id="gallery-image" src="" alt="" class="max-w-full max-h-[65vh] object-contain" style="image-rendering: pixelated;">
+            </div>
+            <div id="gallery-counter" class="text-center mt-4 sv-text text-xs" style="color: #f5e6c8;">
+                1 / 1
+            </div>
+            <div id="gallery-thumbnails" class="flex justify-center gap-2 mt-6 flex-wrap max-w-4xl mx-auto"></div>
+        </div>
+    </div>
+
+    <script>
+        // Welcome Screen
+        const welcomeScreen = document.getElementById('welcome-screen');
+        
+        welcomeScreen.addEventListener('click', () => {
+            welcomeScreen.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all sections except home
+        document.querySelectorAll('section:not(#home)').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // ==================== Ferris Wheel Photo Carousel ====================
+        const ferrisCabins = document.getElementById('ferris-cabins');
+        const ferrisWrapper = document.getElementById('pixel-carousel-wrapper');
+        
+        const ferrisImages = [
+            "./1.jpg", "./2.jpg", "./3.jpg", "./4.jpg", "./5.jpg",
+            "./6.jpg", "./7.jpg", "./8.jpg", "./9.jpg", "./10.jpg",
+            "./11.jpg", "./12.jpg", "./13.jpg", "./14.jpg", "./15.jpg",
+            "./16.jpg", "./17.jpg"
+        ];
+        
+        const cabinCount = 8;
+        let ferrisOffset = 0;
+        let ferrisDragging = false;
+        let ferrisDragStartX = 0;
+        let ferrisAutoTimer;
+        
+        function initFerrisWheel() {
+            if (!ferrisCabins) return;
+            ferrisCabins.innerHTML = '';
+            
+            for (let i = 0; i < cabinCount; i++) {
+                const cabin = document.createElement('div');
+                cabin.className = 'ferris-cabin';
+                cabin.dataset.index = i;
+                
+                cabin.innerHTML = `
+                    <div class="ferris-cabin-inner">
+                        <div class="ferris-chain"></div>
+                        <div class="ferris-photo-frame">
+                            <div class="ferris-frame-outer"></div>
+                            <div class="ferris-frame-inner"></div>
+                            <div class="ferris-frame-corner tl"></div>
+                            <div class="ferris-frame-corner tr"></div>
+                            <div class="ferris-frame-corner bl"></div>
+                            <div class="ferris-frame-corner br"></div>
+                            <div class="ferris-frame-gem"></div>
+                            <div class="ferris-photo">
+                                <img src="" alt="photo">
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                cabin.addEventListener('click', () => {
+                    if (!ferrisDragging) {
+                        const imageIndex = ((i + ferrisOffset) % ferrisImages.length + ferrisImages.length) % ferrisImages.length;
+                        openGallery(0, imageIndex);
+                    }
+                });
+                
+                ferrisCabins.appendChild(cabin);
+            }
+            
+            updateFerrisWheel();
+            startFerrisAutoPlay();
+        }
+        
+        function updateFerrisWheel() {
+            const cabins = ferrisCabins.querySelectorAll('.ferris-cabin');
+            const wheelRadius = 170;
+            
+            cabins.forEach((cabin, cabinIndex) => {
+                const angle = ((cabinIndex + ferrisOffset) * (360 / cabinCount) - 90) * (Math.PI / 180);
+                const x = Math.cos(angle) * wheelRadius;
+                const y = Math.sin(angle) * wheelRadius;
+                
+                cabin.style.left = `calc(50% + ${x}px - 50px)`;
+                cabin.style.top = `calc(50% + ${y}px - 57px)`;
+                
+                const opacity = 0.3 + Math.abs(Math.cos(angle)) * 0.7;
+                cabin.style.opacity = opacity;
+                
+                const scale = 0.7 + Math.abs(Math.cos(angle)) * 0.3;
+                cabin.style.transform = `scale(${scale})`;
+                
+                cabin.style.zIndex = Math.round(10 + Math.cos(angle) * 10);
+            });
+            
+            updateFerrisImages();
+        }
+        
+        function updateFerrisImages() {
+            const cabins = ferrisCabins.querySelectorAll('.ferris-cabin');
+            
+            cabins.forEach((cabin, cabinIndex) => {
+                const imageIndex = ((cabinIndex + ferrisOffset) % ferrisImages.length + ferrisImages.length) % ferrisImages.length;
+                const img = cabin.querySelector('img');
+                if (img) {
+                    img.src = ferrisImages[imageIndex];
+                }
+            });
+        }
+        
+        function rotateFerris(direction) {
+            ferrisOffset = ((ferrisOffset - direction) % ferrisImages.length + ferrisImages.length) % ferrisImages.length;
+            updateFerrisWheel();
+        }
+        
+        function startFerrisAutoPlay() {
+            stopFerrisAutoPlay();
+            ferrisAutoTimer = setInterval(() => {
+                if (!ferrisDragging) {
+                    rotateFerris(1);
+                }
+            }, 2000);
+        }
+        
+        function stopFerrisAutoPlay() {
+            if (ferrisAutoTimer) {
+                clearInterval(ferrisAutoTimer);
+            }
+        }
+        
+        ferrisWrapper.addEventListener('mousedown', (e) => {
+            ferrisDragging = true;
+            ferrisDragStartX = e.clientX;
+        });
+        
+        window.addEventListener('mousemove', (e) => {
+            if (ferrisDragging) {
+                const deltaX = e.clientX - ferrisDragStartX;
+                if (deltaX > 30) {
+                    rotateFerris(-1);
+                    ferrisDragStartX = e.clientX;
+                } else if (deltaX < -30) {
+                    rotateFerris(1);
+                    ferrisDragStartX = e.clientX;
+                }
+            }
+        });
+        
+        window.addEventListener('mouseup', () => {
+            if (ferrisDragging) {
+                ferrisDragging = false;
+                startFerrisAutoPlay();
+            }
+        });
+        
+        ferrisWrapper.addEventListener('touchstart', (e) => {
+            ferrisDragging = true;
+            ferrisDragStartX = e.touches[0].clientX;
+        });
+        
+        window.addEventListener('touchmove', (e) => {
+            if (ferrisDragging) {
+                const deltaX = e.touches[0].clientX - ferrisDragStartX;
+                if (deltaX > 30) {
+                    rotateFerris(-1);
+                    ferrisDragStartX = e.touches[0].clientX;
+                } else if (deltaX < -30) {
+                    rotateFerris(1);
+                    ferrisDragStartX = e.touches[0].clientX;
+                }
+            }
+        });
+        
+        window.addEventListener('touchend', () => {
+            if (ferrisDragging) {
+                ferrisDragging = false;
+                startFerrisAutoPlay();
+            }
+        });
+        
+        ferrisWrapper.addEventListener('mouseenter', () => {
+            stopFerrisAutoPlay();
+        });
+        
+        ferrisWrapper.addEventListener('mouseleave', () => {
+            startFerrisAutoPlay();
+        });
+        
+        initFerrisWheel();
+
+        // ==================== Image Gallery ====================
+        // Photo albums - Replace these with your actual images
+        const albums = [
+            {
+                name: "摄影",
+                images: [
+                    "./1.jpg", "./2.jpg", "./3.jpg", "./4.jpg", "./5.jpg",
+                    "./6.jpg", "./7.jpg", "./8.jpg", "./9.jpg", "./10.jpg",
+                    "./11.jpg", "./12.jpg", "./13.jpg", "./14.jpg", "./15.jpg",
+                    "./16.jpg", "./17.jpg"
+                ]
+            },
+            {
+                name: "阅读",
+                images: [
+                    "./reading1.jpg",
+                    "./reading2.jpg"
+                ]
+            },
+            {
+                name: "旅行",
+                images: [
+                    "./travel1.jpg",
+                    "./travel2.jpg",
+                    "./travel3.jpg"
+                ]
+            },
+            {
+                name: "做饭",
+                images: [
+                    "./cook1.jpg",
+                    "./cook2.jpg"
+                ]
+            },
+            {
+                name: "音乐",
+                images: [
+                    "./music1.jpg"
+                ]
+            },
+            {
+                name: "户外",
+                images: [
+                    "./outdoor1.jpg",
+                    "./outdoor2.jpg"
+                ]
+            }
+        ];
+
+        let currentAlbum = 0;
+        let currentIndex = 0;
+
+        const galleryModal = document.getElementById('gallery-modal');
+        const galleryImage = document.getElementById('gallery-image');
+        const galleryCategory = document.getElementById('gallery-category');
+        const galleryCounter = document.getElementById('gallery-counter');
+        const galleryThumbnails = document.getElementById('gallery-thumbnails');
+        const galleryClose = document.getElementById('gallery-close');
+        const galleryPrev = document.getElementById('gallery-prev');
+        const galleryNext = document.getElementById('gallery-next');
+
+        function openGallery(albumIndex, photoIndex = 0) {
+            currentAlbum = albumIndex;
+            currentIndex = photoIndex;
+            const album = albums[albumIndex];
+            
+            if (album.images.length === 0) {
+                alert('这个相册还没有添加图片哦~');
+                return;
+            }
+            
+            galleryCategory.textContent = album.name;
+            renderGallery();
+            galleryModal.classList.remove('hidden');
+            galleryModal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function renderGallery() {
+            const album = albums[currentAlbum];
+            
+            galleryImage.src = album.images[currentIndex];
+            galleryCounter.textContent = `${currentIndex + 1} / ${album.images.length}`;
+            
+            galleryThumbnails.innerHTML = '';
+            album.images.forEach((img, idx) => {
+                const thumb = document.createElement('div');
+                thumb.className = `w-12 h-12 bg-gold-light rounded overflow-hidden cursor-pointer border-2 ${idx === currentIndex ? 'border-brown' : 'border-transparent'} transition-all`;
+                thumb.innerHTML = `<div class="w-full h-full flex items-center justify-center text-brown/30 text-xs">${idx + 1}</div>`;
+                thumb.onclick = () => {
+                    currentIndex = idx;
+                    renderGallery();
+                };
+                galleryThumbnails.appendChild(thumb);
+            });
+        }
+
+        function closeGallery() {
+            galleryModal.classList.add('hidden');
+            galleryModal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showPrev() {
+            const album = albums[currentAlbum];
+            currentIndex = (currentIndex - 1 + album.images.length) % album.images.length;
+            renderGallery();
+        }
+
+        function showNext() {
+            const album = albums[currentAlbum];
+            currentIndex = (currentIndex + 1) % album.images.length;
+            renderGallery();
+        }
+
+        galleryClose.addEventListener('click', closeGallery);
+        galleryPrev.addEventListener('click', showPrev);
+        galleryNext.addEventListener('click', showNext);
+        
+        galleryModal.addEventListener('click', (e) => {
+            if (e.target === galleryModal) {
+                closeGallery();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!galleryModal.classList.contains('hidden')) {
+                if (e.key === 'Escape') closeGallery();
+                if (e.key === 'ArrowLeft') showPrev();
+                if (e.key === 'ArrowRight') showNext();
+            }
+        });
+    </script>
+</body>
+</html>
