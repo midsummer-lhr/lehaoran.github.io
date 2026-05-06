@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIXEL PORTFOLIO</title>
+    <title>lhr's channel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=VT323&family=Press+Start+2P&family=Ma+Shan+Zheng&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <style>
@@ -689,7 +689,7 @@
     <nav class="fixed top-0 left-0 right-0 z-50" style="background: #f5e6c8; border-bottom: 4px solid #8b6914; box-shadow: 0 2px 0 0 #6b4e0a;">
         <div class="max-w-7xl mx-auto px-4 md:px-8">
             <div class="flex justify-between items-center h-14 md:h-16">
-                <a href="#home" class="sv-text text-[10px] md:text-xs font-bold" style="color: #3d2b1f;">✦ 像素站 ✦</a>
+                <a href="#home" class="sv-text text-[10px] md:text-xs font-bold" style="color: #3d2b1f;">✦ 比亚迪 ✦</a>
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#home" class="sv-text text-[11px] font-semibold hover:text-gold transition-colors" style="color: #5a3e1b;">首页</a>
                     <a href="#work" class="sv-text text-[11px] font-semibold hover:text-gold transition-colors" style="color: #5a3e1b;">工作</a>
@@ -1215,7 +1215,8 @@
                     <style>
                         .ferris-container {
                             width: 100%;
-                            height: 560px;
+                            min-height: 320px;
+                            max-height: 560px;
                             position: relative;
                             display: flex;
                             flex-direction: column;
@@ -1223,8 +1224,10 @@
                             justify-content: center;
                         }
                         .ferris-wheel {
-                            width: 440px;
-                            height: 440px;
+                            width: 100%;
+                            max-width: 440px;
+                            height: auto;
+                            aspect-ratio: 1;
                             position: relative;
                         }
                         .ferris-center {
@@ -1232,13 +1235,13 @@
                             top: 50%;
                             left: 50%;
                             transform: translate(-50%, -50%);
-                            width: 46px;
-                            height: 46px;
+                            width: 10.5%;
+                            height: 10.5%;
                             background: radial-gradient(circle, #ff6b35 0%, #c4562c 50%, #8b3a1a 100%);
                             border-radius: 50%;
-                            border: 4px solid #d4a574;
+                            border: 0.9% solid #d4a574;
                             z-index: 30;
-                            box-shadow: 0 0 15px rgba(255,107,53,0.6), inset 0 0 10px rgba(255,215,0,0.3);
+                            box-shadow: 0 0 3.4% rgba(255,107,53,0.6), inset 0 0 2.3% rgba(255,215,0,0.3);
                         }
                         .ferris-center::before {
                             content: '';
@@ -1246,20 +1249,20 @@
                             top: 50%;
                             left: 50%;
                             transform: translate(-50%, -50%);
-                            width: 18px;
-                            height: 18px;
+                            width: 40%;
+                            height: 40%;
                             background: #ffd700;
                             border-radius: 50%;
-                            box-shadow: 0 0 10px #ffd700, inset 0 0 5px rgba(255,107,53,0.5);
+                            box-shadow: 0 0 22% #ffd700, inset 0 0 11% rgba(255,107,53,0.5);
                         }
                         .ferris-center::after {
                             content: '';
                             position: absolute;
-                            top: -5px;
-                            left: -5px;
-                            right: -5px;
-                            bottom: -5px;
-                            border: 2px solid #d4a574;
+                            top: -11%;
+                            left: -11%;
+                            right: -11%;
+                            bottom: -11%;
+                            border: 4% solid #d4a574;
                             border-radius: 50%;
                             opacity: 0.6;
                         }
@@ -1267,8 +1270,8 @@
                             position: absolute;
                             top: 50%;
                             left: 50%;
-                            width: 8px;
-                            height: 190px;
+                            width: 1.8%;
+                            height: 43%;
                             background: linear-gradient(to bottom, #d4a574, #c4a44a, #8b6914);
                             transform-origin: top center;
                             z-index: 15;
@@ -1279,23 +1282,23 @@
                             top: 50%;
                             left: 50%;
                             transform: translate(-50%, -50%);
-                            width: 10px;
-                            height: 10px;
+                            width: 120%;
+                            height: 120%;
                             background: #ffd700;
                             border-radius: 50%;
-                            box-shadow: 0 0 5px #ffd700;
+                            box-shadow: 0 0 50% #ffd700;
                         }
                         .ferris-frame {
                             position: absolute;
                             top: 50%;
                             left: 50%;
-                            width: 380px;
-                            height: 380px;
+                            width: 86%;
+                            height: 86%;
                             transform: translate(-50%, -50%);
-                            border: 10px solid #d4a574;
+                            border: 2.3% solid #d4a574;
                             border-radius: 50%;
                             z-index: 8;
-                            box-shadow: inset 0 0 12px rgba(139,105,20,0.3);
+                            box-shadow: inset 0 0 2.7% rgba(139,105,20,0.3);
                         }
                         .ferris-frame::before {
                             content: '';
@@ -1303,7 +1306,7 @@
                             top: 50%;
                             left: 0;
                             width: 100%;
-                            height: 10px;
+                            height: 2.3%;
                             background: linear-gradient(90deg, #8b6914, #d4a574, #8b6914);
                             transform: translateY(-50%);
                             z-index: 1;
@@ -1313,7 +1316,7 @@
                             position: absolute;
                             top: 0;
                             left: 50%;
-                            width: 10px;
+                            width: 2.3%;
                             height: 100%;
                             background: linear-gradient(180deg, #8b6914, #d4a574, #8b6914);
                             transform: translateX(-50%);
@@ -1323,31 +1326,31 @@
                             position: absolute;
                             top: 50%;
                             left: 50%;
-                            width: 380px;
-                            height: 380px;
+                            width: 86%;
+                            height: 86%;
                             transform: translate(-50%, -50%);
                             border-radius: 50%;
                             z-index: 9;
                         }
                         .ferris-frame-ribbon {
                             position: absolute;
-                            width: 20px;
-                            height: 10px;
+                            width: 4.5%;
+                            height: 2.3%;
                             background: #ff6b35;
-                            border-radius: 2px;
+                            border-radius: 0.5%;
                         }
                         .ferris-frame-dot {
                             position: absolute;
-                            width: 8px;
-                            height: 8px;
+                            width: 1.8%;
+                            height: 1.8%;
                             background: #ffd700;
                             border-radius: 50%;
-                            box-shadow: 0 0 5px #ffd700;
+                            box-shadow: 0 0 2.7% #ffd700;
                         }
                         .ferris-cabin {
                             position: absolute;
-                            width: 100px;
-                            height: 115px;
+                            width: 22.7%;
+                            height: 26.1%;
                             cursor: pointer;
                             transition: all 0.5s ease;
                             z-index: 20;
@@ -1361,82 +1364,82 @@
                             justify-content: center;
                         }
                         .ferris-chain {
-                            width: 5px;
-                            height: 20px;
+                            width: 1.1%;
+                            height: 4.5%;
                             background: repeating-linear-gradient(
                                 0deg,
                                 #8b6914 0px,
-                                #8b6914 3px,
-                                #d4a574 3px,
-                                #d4a574 6px
+                                #8b6914 0.7%,
+                                #d4a574 0.7%,
+                                #d4a574 1.4%
                             );
-                            margin-bottom: 3px;
+                            margin-bottom: 0.7%;
                         }
                         .ferris-chain::before {
                             content: '';
                             position: absolute;
-                            top: -8px;
+                            top: -1.8%;
                             left: 50%;
                             transform: translateX(-50%);
-                            width: 18px;
-                            height: 8px;
+                            width: 4.1%;
+                            height: 1.8%;
                             background: linear-gradient(to bottom, #d4a574, #8b6914);
-                            border-radius: 2px;
+                            border-radius: 0.5%;
                         }
                         .ferris-photo-frame {
-                            width: 82px;
-                            height: 96px;
+                            width: 82%;
+                            height: 83.5%;
                             position: relative;
                             overflow: hidden;
                         }
                         .ferris-frame-outer {
                             position: absolute;
-                            top: -5px;
-                            left: -5px;
-                            right: -5px;
-                            bottom: -5px;
+                            top: -6%;
+                            left: -6%;
+                            right: -6%;
+                            bottom: -6%;
                             background: linear-gradient(135deg, #c4a44a 0%, #d4a574 50%, #c4a44a 100%);
-                            border-radius: 3px;
-                            box-shadow: 4px 4px 0 #8b6914;
+                            border-radius: 0.7%;
+                            box-shadow: 4.9% 4.9% 0 #8b6914;
                         }
                         .ferris-frame-inner {
                             position: absolute;
-                            top: 3px;
-                            left: 3px;
-                            right: 3px;
-                            bottom: 3px;
+                            top: 3.6%;
+                            left: 3.6%;
+                            right: 3.6%;
+                            bottom: 3.6%;
                             background: linear-gradient(135deg, #d4a574 0%, #f5e6c8 50%, #d4a574 100%);
-                            border-radius: 2px;
+                            border-radius: 0.5%;
                         }
                         .ferris-frame-corner {
                             position: absolute;
-                            width: 12px;
-                            height: 12px;
+                            width: 14.6%;
+                            height: 14.6%;
                             background: linear-gradient(135deg, #ffd700 0%, #ff6b35 100%);
-                            border-radius: 2px;
+                            border-radius: 2.4%;
                             z-index: 5;
                         }
-                        .ferris-frame-corner.tl { top: -3px; left: -3px; transform: rotate(-45deg); }
-                        .ferris-frame-corner.tr { top: -3px; right: -3px; transform: rotate(45deg); }
-                        .ferris-frame-corner.bl { bottom: -3px; left: -3px; transform: rotate(45deg); }
-                        .ferris-frame-corner.br { bottom: -3px; right: -3px; transform: rotate(-45deg); }
+                        .ferris-frame-corner.tl { top: -3.6%; left: -3.6%; transform: rotate(-45deg); }
+                        .ferris-frame-corner.tr { top: -3.6%; right: -3.6%; transform: rotate(45deg); }
+                        .ferris-frame-corner.bl { bottom: -3.6%; left: -3.6%; transform: rotate(45deg); }
+                        .ferris-frame-corner.br { bottom: -3.6%; right: -3.6%; transform: rotate(-45deg); }
                         .ferris-frame-gem {
                             position: absolute;
-                            top: 4px;
-                            right: 4px;
-                            width: 8px;
-                            height: 8px;
+                            top: 4.9%;
+                            right: 4.9%;
+                            width: 9.8%;
+                            height: 9.8%;
                             background: #ff6b35;
                             border-radius: 50%;
-                            box-shadow: 0 0 5px #ff6b35;
+                            box-shadow: 0 0 6.1% #ff6b35;
                             z-index: 6;
                         }
                         .ferris-photo {
                             position: absolute;
-                            top: 8px;
-                            left: 8px;
-                            right: 8px;
-                            bottom: 8px;
+                            top: 9.8%;
+                            left: 9.8%;
+                            right: 9.8%;
+                            bottom: 9.8%;
                             background: #fff8dc;
                             display: flex;
                             align-items: center;
@@ -1451,19 +1454,19 @@
                         }
                         .ferris-support-left, .ferris-support-right {
                             position: absolute;
-                            bottom: 15px;
-                            width: 14px;
-                            height: 145px;
+                            bottom: 3.4%;
+                            width: 3.2%;
+                            height: 33%;
                             background: linear-gradient(to right, #8b6914, #d4a574, #8b6914);
                             z-index: 5;
                         }
                         .ferris-support-left {
-                            left: calc(50% - 145px);
+                            left: calc(50% - 33%);
                             transform: rotate(-30deg);
                             transform-origin: bottom center;
                         }
                         .ferris-support-right {
-                            right: calc(50% - 145px);
+                            right: calc(50% - 33%);
                             transform: rotate(30deg);
                             transform-origin: bottom center;
                         }
@@ -1477,64 +1480,65 @@
                             background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
                         }
                         .ferris-base {
-                            width: 360px;
-                            height: 52px;
+                            width: 82%;
+                            max-width: 360px;
+                            height: 11.8%;
                             position: relative;
-                            margin-top: 10px;
+                            margin-top: 2.3%;
                             z-index: 10;
                         }
                         .ferris-base-top {
                             position: absolute;
                             top: 0;
-                            left: 12px;
-                            right: 12px;
-                            height: 18px;
+                            left: 3.3%;
+                            right: 3.3%;
+                            height: 34.6%;
                             background: linear-gradient(to bottom, #d4a574, #c4a44a);
-                            border-radius: 5px 5px 0 0;
+                            border-radius: 1.4% 1.4% 0 0;
                         }
                         .ferris-base-middle {
                             position: absolute;
-                            top: 16px;
+                            top: 30.8%;
                             left: 0;
                             right: 0;
-                            height: 22px;
+                            height: 42.3%;
                             background: linear-gradient(to bottom, #ff6b35, #c4562c);
-                            border-radius: 2px;
+                            border-radius: 0.6%;
                         }
                         .ferris-base-bottom {
                             position: absolute;
                             bottom: 0;
-                            left: 6px;
-                            right: 6px;
-                            height: 16px;
+                            left: 1.7%;
+                            right: 1.7%;
+                            height: 30.8%;
                             background: linear-gradient(to bottom, #8b6914, #5a400a);
-                            border-radius: 0 0 5px 5px;
-                            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+                            border-radius: 0 0 1.4% 1.4%;
+                            box-shadow: 0 1.4% 2.8% rgba(0,0,0,0.3);
                         }
                         .ferris-base-dot {
                             position: absolute;
-                            top: 20px;
-                            width: 10px;
-                            height: 10px;
+                            top: 38.5%;
+                            width: 2.8%;
+                            height: 19.2%;
                             background: #ffd700;
                             border-radius: 50%;
-                            box-shadow: 0 0 5px #ffd700;
+                            box-shadow: 0 0 2.8% #ffd700;
                         }
                         .ferris-base-shadow {
                             position: absolute;
-                            bottom: -10px;
+                            bottom: -2.3%;
                             left: 50%;
                             transform: translateX(-50%);
-                            width: 320px;
-                            height: 16px;
+                            width: 72.7%;
+                            height: 30.8%;
                             background: rgba(139,105,20,0.3);
                             border-radius: 50%;
-                            filter: blur(5px);
+                            filter: blur(1.4%);
                         }
                         .ferris-light {
                             position: absolute;
-                            width: 6px;
-                            height: 6px;
+                            width: 1.4%;
+                            height: 1.4%;
                             background: #ff0;
                             border-radius: 50%;
                             animation: twinkle 0.8s ease-in-out infinite;
